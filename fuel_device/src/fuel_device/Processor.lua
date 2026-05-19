@@ -20,7 +20,8 @@ local function process_possible(inv, meta, method)
 		width  = inv:get_size('src'),
 		items  = inv:get_list('src'),
 	})
-	if not result_source or result_source.time == 0 then
+	local fuel_time = meta:get_int('fuel_time')
+	if not result_source or (fuel_time == 0 and result_source.time == 0) then
 		return false, nil, nil, nil, nil
 	end
 
@@ -31,8 +32,8 @@ local function process_possible(inv, meta, method)
 	})
 
 	local possible =
-		result_source.time > 0 and
-		(result_fuel.time > 0 or meta:get_int('fuel_time') > 0) and
+		(result_source.time > 0 or fuel_time > 0) and
+		(result_fuel.time > 0 or fuel_time > 0) and
 		inv:room_for_item('dst', result_source.item)
 	if not possible then
 		return false, nil, nil, nil, nil
