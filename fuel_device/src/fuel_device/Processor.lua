@@ -67,17 +67,18 @@ end
 --- @param meta             NodeMetaRef
 --- @param remaining_source RecipeInput
 --- @param result_source    RecipeOutput
-local function process_source(meta, remaining_source, result_source)
-	local src_time = meta:get_int('src_time')
+local function process_source(meta, remaining_source, result_source, position)
+	local src_time      = meta:get_int('src_time')
 	local src_totaltime = result_source.time
-
+	local node          = minetest.get_node(position)
 	src_time = src_time + 1
-
-	if src_time >= src_totaltime then
+	if src_time >= src_totaltime and src_totaltime > 0 then
 		local inv = meta:get_inventory()
-		inv:set_list('src', remaining_source.items)
+	inv:set_list('src', remaining_source.items)
 		inv:add_item('dst', result_source.item)
 		src_time = 0
+		local node_def      = minetest.registered_nodes[node.name]
+		fuel_device.Sound.play_once_at(position, node_def.sound_output)
 	end
 
 	meta:set_int('src_time', src_time)
@@ -130,12 +131,14 @@ function Processor:start_or_stop(position)
 	local device = self.DeviceClass:new(position)
 	local meta   = device:get_meta()
 	local inv    = meta:get_inventory()
-
 	local possible = process_possible(inv, meta, self.craft_method)
 	if possible then
 		device:activate(S('Active'))
+		local node_def = minetest.registered_nodes[device.node_name.active]
+		fuel_device.Sound.start_at(device.position, node_def.sound_device)
 	else
 		device:deactivate(S('Out Of Fuel'))
+		fuel_device.Sound.stop_at(device.position)
 	end
 end
 
@@ -145,7 +148,6 @@ function Processor:act(position)
 	local device = self.DeviceClass:new(position)
 	local meta   = device:get_meta()
 	local inv    = meta:get_inventory()
-
 	local possible, result_source, remaining_source, result_fuel, remaining_fuel
 		= process_possible(inv, meta, self.craft_method)
 	if possible then
@@ -154,11 +156,11 @@ function Processor:act(position)
 		--- @cast result_fuel      RecipeOutput
 		--- @cast remaining_fuel   RecipeInput
 		device:activate(S('Active'))
-
 		burn_fuel(meta, remaining_fuel, result_fuel)
-		process_source(meta, remaining_source, result_source)
+		process_source(meta, remaining_source, result_source, position)
 	else
 		device:deactivate(S('Out Of Fuel'))
+		fuel_device.Sound.stop_at(device.position)
 	end
 end
 
