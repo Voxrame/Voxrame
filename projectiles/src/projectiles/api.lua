@@ -58,6 +58,10 @@ local flame_node = function(pos)
 			end
 		else
 			if not in_nazgul_area then
+				-- one cannot simply remove a node without exploding it first
+				if node_desc.on_blast then
+					node_desc.on_blast(pos)
+				end
 				minetest.remove_node(pos)
 			end
 		end
@@ -93,29 +97,45 @@ local explode_objects = function(pos, radius, explosive_object, damage_groups)
 	end
 end
 
+local explode_node = function(pos)	
+	local node = core.get_node(pos)
+	local node_def = minetest.registered_nodes[node.name]
+	
+	if node_def then
+		if node_def.on_blast then
+			node_def.on_blast(pos)
+		else
+			minetest.punch_node(pos)
+		end
+	end
+end
+
 local explode_area = function(pos, burn_radius, explosion_radius, explosive_object, damage_groups)
 	local rad_vec = vector.new(burn_radius, burn_radius, burn_radius)
 	local p1 = vector.subtract(pos, rad_vec)
 	local p2 = vector.add(pos, rad_vec)
+
 	explode_objects(pos, explosion_radius, explosive_object, damage_groups)
+	explode_node(pos)
+
 	for y = p1.y, p2.y do
 		for z = p1.z, p2.z do
-			minetest.punch_node({ x = p1.x - 1, y = y, z = z })
-			minetest.punch_node({ x = p2.x + 1, y = y, z = z })
+			explode_node({ x = p1.x - 1, y = y, z = z })
+			explode_node({ x = p2.x + 1, y = y, z = z })
 		end
 	end
 
 	for x = p1.x, p2.x do
 		for z = p1.z, p2.z do
-			minetest.punch_node({ x = x, y = p1.y - 1, z = z })
-			minetest.punch_node({ x = x, y = p2.y + 1, z = z })
+			explode_node({ x = x, y = p1.y - 1, z = z })
+			explode_node({ x = x, y = p2.y + 1, z = z })
 		end
 	end
 
 	for x = p1.x, p2.x do
 		for y = p1.y, p2.y do
-			minetest.punch_node({ x = x, y = y, z = p1.z - 1 })
-			minetest.punch_node({ x = x, y = y, z = p2.z + 1 })
+			explode_node({ x = x, y = y, z = p1.z - 1 })
+			explode_node({ x = x, y = y, z = p2.z + 1 })
 		end
 	end
 
