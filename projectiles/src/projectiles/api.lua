@@ -101,7 +101,6 @@ end
 local explode_node = function(pos)
 	local node = core.get_node(pos)
 	local node_def = core.registered_nodes[node.name]
-	
 	if node_def then
 		if node_def.on_blast then
 			node_def.on_blast(pos)
