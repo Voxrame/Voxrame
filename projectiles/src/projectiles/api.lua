@@ -98,7 +98,7 @@ local explode_objects = function(pos, radius, explosive_object, damage_groups)
 end
 -- Invoke on_blast() callback in the node
 --- @param pos    table       position of the node
-local explode_node = function(pos)	
+local explode_node = function(pos)
 	local node = core.get_node(pos)
 	local node_def = core.registered_nodes[node.name]
 	
