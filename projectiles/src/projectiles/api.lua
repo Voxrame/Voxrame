@@ -105,7 +105,7 @@ local explode_node = function(pos)
 		if node_def.on_blast then
 			node_def.on_blast(pos)
 		else
-			minetest.punch_node(pos)
+			core.punch_node(pos)
 		end
 	end
 end
