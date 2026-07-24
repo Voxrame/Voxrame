@@ -127,8 +127,8 @@ local explode_area = function(pos, burn_radius, explosion_radius, explosive_obje
 	local p1 = vector.subtract(pos, rad_vec)
 	local p2 = vector.add(pos, rad_vec)
 
-	local node_pos = {}
-	local in_nazgul_area = false
+	local node_pos
+	local in_nazgul_area
 
 	explode_objects(pos, explosion_radius, explosive_object, damage_groups)
 
