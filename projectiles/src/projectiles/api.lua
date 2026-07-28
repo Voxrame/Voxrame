@@ -38,7 +38,7 @@ end
 
 -- flame air and replace some nodes with fire
 --- @param pos            Position   node position
---- @param in_nazgul_area boolean    flag that the block is in an area protected from explosions
+--- @param in_nazgul_area boolean    flag that the node is in an area protected from explosions
 local flame_node = function(pos, in_nazgul_area)
 	local n = minetest.get_node(pos).name
 	local node_desc = minetest.registered_nodes[n]
@@ -100,7 +100,7 @@ end
 
 -- Invoke on_blast() callback in the node
 --- @param pos            Position   position of the node
---- @param in_nazgul_area boolean    flag that the block is in an area protected from explosions
+--- @param in_nazgul_area boolean    flag that the node is in an area protected from explosions
 local explode_node = function(pos, in_nazgul_area)
 	local node = core.get_node(pos)
 	local node_def = core.registered_nodes[node.name]
