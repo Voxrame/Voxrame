@@ -98,7 +98,7 @@ local explode_objects = function(pos, radius, explosive_object, damage_groups)
 	end
 end
 
--- Invoke on_blast() callback in the node
+--- Invoke on_blast() callback in the node.
 --- @param pos            Position   position of the node
 --- @param in_nazgul_area boolean    flag that the node is in an area protected from explosions
 local explode_node = function(pos, in_nazgul_area)
@@ -116,7 +116,7 @@ local explode_node = function(pos, in_nazgul_area)
 	end
 end
 
--- Deal damage and explode nodes in an area hit by an explosive projectile
+--- Deal damage and explode nodes in an area hit by an explosive projectile
 --- @param pos              Position    position of the node hit by the projectile
 --- @param burn_radius      number      radius in which nodes are hit and flames appear
 --- @param explosion_radius number      radius in which entities are damaged
