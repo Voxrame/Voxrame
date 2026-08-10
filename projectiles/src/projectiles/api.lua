@@ -36,7 +36,7 @@ local function register_projectile(name, reg, not_register_item)
 	}, def))
 end
 
--- flame air and replace some nodes with fire
+--- Flame air and replace some nodes with fire.
 --- @param pos            Position   node position
 --- @param in_nazgul_area boolean    flag that the node is in an area protected from explosions
 local flame_node = function(pos, in_nazgul_area)
