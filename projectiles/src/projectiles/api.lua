@@ -36,7 +36,10 @@ local function register_projectile(name, reg, not_register_item)
 	}, def))
 end
 
-local flame_node = function(pos)
+--- Flame air and replace some nodes with fire.
+--- @param pos            Position   node position
+--- @param in_nazgul_area boolean    flag that the node is in an area protected from explosions
+local flame_node = function(pos, in_nazgul_area)
 	local n = minetest.get_node(pos).name
 	local node_desc = minetest.registered_nodes[n]
 	if node_desc == nil then
@@ -50,8 +53,6 @@ local flame_node = function(pos)
 	end
 
 	if node_desc.groups.forbidden == nil then
-		local in_nazgul_area = nazgul_area.position_in_nazgul_area(pos)
-
 		if node_desc.groups.flammable or math.random(1, 100) <= 30 then
 			if n == "air" or not in_nazgul_area then
 				minetest.set_node(pos, { name = "fire:basic_flame" })
@@ -96,53 +97,49 @@ local explode_objects = function(pos, radius, explosive_object, damage_groups)
 		::continue::
 	end
 end
--- Invoke on_blast() callback in the node
---- @param pos Position   position of the node
-local explode_node = function(pos)
+
+--- Invoke on_blast() callback in the node.
+--- @param pos            Position   position of the node
+--- @param in_nazgul_area boolean    flag that the node is in an area protected from explosions
+local explode_node = function(pos, in_nazgul_area)
 	local node = core.get_node(pos)
 	local node_def = core.registered_nodes[node.name]
-	if node_def then
-		if node_def.on_blast then
-			node_def.on_blast(pos)
-		else
-			core.punch_node(pos)
+
+	if not in_nazgul_area then
+		if node_def then
+			if node_def.on_blast then
+				node_def.on_blast(pos)
+			else
+				core.punch_node(pos)
+			end
 		end
 	end
 end
 
+--- Deal damage and explode nodes in an area hit by an explosive projectile
+--- @param pos              Position    position of the node hit by the projectile
+--- @param burn_radius      number      radius in which nodes are hit and flames appear
+--- @param explosion_radius number      radius in which entities are damaged
+--- @param explosive_object ObjectRef   projectile object
+--- @param damage_groups    table       damage groups table
 local explode_area = function(pos, burn_radius, explosion_radius, explosive_object, damage_groups)
 	local rad_vec = vector.new(burn_radius, burn_radius, burn_radius)
 	local p1 = vector.subtract(pos, rad_vec)
 	local p2 = vector.add(pos, rad_vec)
 
+	local node_pos
+	local in_nazgul_area
+
 	explode_objects(pos, explosion_radius, explosive_object, damage_groups)
-	explode_node(pos)
-
-	for y = p1.y, p2.y do
-		for z = p1.z, p2.z do
-			explode_node({ x = p1.x - 1, y = y, z = z })
-			explode_node({ x = p2.x + 1, y = y, z = z })
-		end
-	end
-
-	for x = p1.x, p2.x do
-		for z = p1.z, p2.z do
-			explode_node({ x = x, y = p1.y - 1, z = z })
-			explode_node({ x = x, y = p2.y + 1, z = z })
-		end
-	end
-
-	for x = p1.x, p2.x do
-		for y = p1.y, p2.y do
-			explode_node({ x = x, y = y, z = p1.z - 1 })
-			explode_node({ x = x, y = y, z = p2.z + 1 })
-		end
-	end
 
 	for x = p1.x, p2.x do
 		for y = p1.y, p2.y do
 			for z = p1.z, p2.z do
-				flame_node(vector.new(x, y, z))
+				node_pos = { x = x, y = y, z = z }
+				in_nazgul_area = nazgul_area.position_in_nazgul_area(node_pos)
+
+				explode_node(node_pos, in_nazgul_area)
+				flame_node(node_pos, in_nazgul_area)
 			end
 		end
 	end
