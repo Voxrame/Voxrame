@@ -91,10 +91,13 @@ term.supports_ansi = (function()
 		return true
 	end
 	-- Additional check via Windows Registry
-	if os.getenv('OS') == 'Windows_NT' then
+	-- Luanti does not provide `io.popen` without `core.request_insecure_environment()`.
+	--   We does not requests ie, but check availability (in case if in future it will be avaible).
+	if os.getenv('OS') == 'Windows_NT' and io.popen then
 		local handle = io.popen('reg query HKCU\\Console /v VirtualTerminalLevel 2>nul')
 		local result = handle:read('*a')
 		handle:close()
+
 		return result:find('0x1') ~= nil
 	end
 
