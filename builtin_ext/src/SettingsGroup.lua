@@ -73,9 +73,10 @@ function SettingsGroup:get_position(name)
 end
 
 --- @overload fun(name:string)
---- @param name    string  name of the setting (key). Stripped key names are used (without group-name prefixes).
---- @param default boolean default value, if setting not found. [optional]
---- @return boolean|nil returns `nil` if setting not found and `default` not specified.
+--- @generic B: boolean
+--- @param name     string  name of the setting (key). Stripped key names are used (without group-name prefixes).
+--- @param default? B       default value, if setting not found. [optional]
+--- @return B @ returns `nil` if setting not found and `default` not specified.
 function SettingsGroup:get_bool(name, default)
 	assert(default == nil or type(default) == 'boolean')
 
