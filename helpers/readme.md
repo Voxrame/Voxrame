@@ -23,8 +23,10 @@
 
 ---
 
-<center>Made with ❤️ for the Luanti community</center>
-<center>        © 2026 Lord Team             </center>
+<div style="text-align:center">
+   Made with ❤️ for the Luanti community<br>
+   © 2026 Lord Team
+</div>
 
 ---
 
