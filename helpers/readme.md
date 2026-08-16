@@ -1,7 +1,47 @@
+# Lua Helpers ([Voxrame](https://voxrame.dev) component)
+[![Maintained By: Lord Team](https://img.shields.io/badge/Maintained%20By-Lord%20Team-659b4b?style=for-the-badge)](https://github.com/lord-server/lord?tab=readme-ov-file#contributors--%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA%D0%B8)
+[![Donate: Boosty](https://img.shields.io/badge/Donate-Boosty-f15f2c?style=for-the-badge)](https://boosty.to/lord-server)
+[![License: MIT](https://img.shields.io/badge/License-MIT-444?style=for-the-badge)](./license.md)
 
-# Debug
+---
 
-## Configure clickable file-links for you IDE
+## Detailed documentation:
+
+- 🇺🇸 [English](https://voxrame.dev/utils/helpers)
+- 🇷🇺 [Русский](https://voxrame.dev/ru/utils/helpers)
+- 🇩🇪 [Deutsch](https://voxrame.dev/de/utils/helpers)
+- 🇧🇷 [Brasileiro](https://voxrame.dev/br/utils/helpers)
+- 🇨🇳 [中文](https://voxrame.dev/zh/utils/helpers)
+- 🇪🇸 [Español](https://voxrame.dev/es/utils/helpers)
+- 🇫🇷 [Français](https://voxrame.dev/fr/utils/helpers)
+- 🇮🇹 [Italiano](https://voxrame.dev/it/utils/helpers)
+- 🇵🇱 [Polski](https://voxrame.dev/pl/utils/helpers)
+- 🇮🇩 [Indonesia](https://voxrame.dev/id/utils/helpers)
+- 🇹🇷 [Türkçe](https://voxrame.dev/tr/utils/helpers)
+- 🇸🇦 [العربية](https://voxrame.dev/ar/utils/helpers)
+- 🇻🇳 [Tiếng Việt](https://voxrame.dev/vi/utils/helpers)
+
+---
+
+<center>Made with ❤️ for the Luanti community</center>
+<center>        © 2026 Lord Team             </center>
+
+---
+
+## Development
+
+All contributions should be made to the main repository: [https://github.com/Voxrame/Voxrame](https://github.com/Voxrame/Voxrame)
+
+## Support
+
+- 🐞 [Report Issues](https://github.com/Voxrame/voxrame/issues)
+<!-- - 💬 [Discord Community](https://discord.gg/voxrame) -->
+- ❤️ [Support Development](https://boosty.to/lord-server)
+
+
+## Debug Configure
+
+**Configure clickable file-links for you IDE**
 
 1. Ensure that your [terminal supports ANSI OSC8 Codes](https://github.com/Alhadis/OSC8-Adoption).
 2. Configure custom scheme for your OS, examples for Linux:

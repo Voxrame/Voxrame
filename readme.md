@@ -60,6 +60,7 @@ This project is licensed under the MIT License - see [`license.md`](./license.md
 
 ---
 
-Made with ❤️ for the Luanti community  
-© 2026 Lord Team
+<center>Made with ❤️ for the Luanti community</center>
+<center>        © 2026 Lord Team             </center>
 
+---
