@@ -23,10 +23,10 @@
 
 ---
 
-<div style="text-align:center">
+<p align="center">
    Made with ❤️ for the Luanti community<br>
    © 2026 Lord Team
-</div>
+</p>
 
 ---
 
