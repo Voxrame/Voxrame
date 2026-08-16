@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Initialize remotes for all sub-mods, for splitting folders into separate repos
+
+git remote add vx-helpers git@github.com:Voxrame/helpers.git

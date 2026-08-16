@@ -1,0 +1,9 @@
+* text=auto eol=lf
+
+/.build/            export-ignore
+/.github/           export-ignore
+/.editorconfig      export-ignore
+/.gitattributes     export-ignore
+/.luacheckrc        export-ignore
+/.common-luacheckrc export-ignore
+/.game-luacheckrc   export-ignore

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Split sub-mods into separate repos (asume `init-remotes` was run)
+
+git subtree push -P helpers vx-helpers master
