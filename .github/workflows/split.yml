@@ -22,6 +22,10 @@ jobs:
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
 
+      - name: Configure Git traffic routing through HTTPS token
+        run: |
+          git config --global url."https://x-access-token:${{ secrets.VOXRAME_SPLIT_GITHUB_TOKEN }}@github.com/".insteadOf "git@github.com:"
+
       - name: Split repo
         run: |
           ./.build/init-remotes
