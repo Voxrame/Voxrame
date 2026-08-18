@@ -70,7 +70,7 @@ end
 local function process_source(meta, remaining_source, result_source, position)
 	local src_time      = meta:get_int('src_time')
 	local src_totaltime = result_source.time
-	local node          = minetest.get_node(position)
+	local node = core.get_node(position)
 	src_time = src_time + 1
 	if src_time >= src_totaltime and src_totaltime > 0 then
 		local inv = meta:get_inventory()
@@ -131,6 +131,7 @@ function Processor:start_or_stop(position)
 	local device = self.DeviceClass:new(position)
 	local meta   = device:get_meta()
 	local inv    = meta:get_inventory()
+
 	local possible = process_possible(inv, meta, self.craft_method)
 	if possible then
 		device:activate(S('Active'))
@@ -148,6 +149,7 @@ function Processor:act(position)
 	local device = self.DeviceClass:new(position)
 	local meta   = device:get_meta()
 	local inv    = meta:get_inventory()
+
 	local possible, result_source, remaining_source, result_fuel, remaining_fuel
 		= process_possible(inv, meta, self.craft_method)
 	if possible then
