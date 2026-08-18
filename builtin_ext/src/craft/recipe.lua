@@ -1,5 +1,5 @@
-local minetest_registered_items
-    = minetest.registered_items
+local luanti_registered_items
+    = core.registered_items
 
 
 
@@ -8,7 +8,7 @@ local minetest_registered_items
 ---@param callback fun(name:string,item:ItemDefinition,recipes:RecipeEntryTable[])
 local function foreach_items_with_recipes(items, callback)
 	for name, item in pairs(items) do
-		local recipes = minetest.get_all_craft_recipes(name)
+		local recipes = core.get_all_craft_recipes(name)
 		if recipes then
 			callback(name, item, recipes)
 		end
@@ -35,13 +35,13 @@ end
 --- @param except      table   mostly internal var to no recursion in graph. This items will be ignored.
 ---
 --- @return RecipeEntryTable[]
-function minetest.get_all_craft_recipes_from(ingredient, recursively, max_depth, except)
+function core.get_all_craft_recipes_from(ingredient, recursively, max_depth, except)
 	recursively = recursively or false
 	max_depth   = max_depth   or 10
 	except      = except      or {}
 
 	local found_recipes = {}
-	foreach_items_with_recipes(minetest_registered_items, function(_, _, recipes)
+	foreach_items_with_recipes(luanti_registered_items, function(_, _, recipes)
 		foreach_recipe_with_ingredient(recipes, ingredient, function(recipe)
 			--- @type string
 			local out_item_name = recipe.output:split(' ')[1]--- @as string `:split()` always have at least 1 element
@@ -50,7 +50,7 @@ function minetest.get_all_craft_recipes_from(ingredient, recursively, max_depth,
 				except[out_item_name] = true
 				found_recipes = table.overwrite(
 					found_recipes,
-					minetest.get_all_craft_recipes_from(out_item_name, true, max_depth - 1, except)
+					core.get_all_craft_recipes_from(out_item_name, true, max_depth - 1, except)
 				)
 			end
 

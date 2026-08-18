@@ -62,7 +62,7 @@ end
 --- @generic GenericDetachedInventory: base_classes.DetachedInventory
 --- @return GenericDetachedInventory
 function DetachedInventory:create()
-	local detached = minetest.create_detached_inventory(self.id, self.callbacks, self.player_name)
+	local detached = core.create_detached_inventory(self.id, self.callbacks, self.player_name)
 	self:build(detached)
 
 	return self
@@ -70,7 +70,7 @@ end
 
 --- @return InvRef
 function DetachedInventory:get_detached()
-	return minetest.get_inventory({ type = 'detached', name = self.id })
+	return core.get_inventory({ type = 'detached', name = self.id })
 end
 
 --- @protected
@@ -93,9 +93,9 @@ end
 function DetachedInventory:return_forgotten()
 	if table.is_empty(self.lists_for_return) then  return  end
 
-	local player_inventory   = minetest.get_inventory({ type = 'player', name = self.player_name })
+	local player_inventory   = core.get_inventory({ type = 'player', name = self.player_name })
 	local detached_inventory = self:get_detached()
-	local player             = minetest.get_player_by_name(self.player_name)
+	local player             = core.get_player_by_name(self.player_name)
 	if not player_inventory or not detached_inventory or not player then
 		return
 	end
@@ -108,7 +108,7 @@ function DetachedInventory:return_forgotten()
 				if player_inventory:room_for_item('main', stack) then
 					player_inventory:add_item('main', stack)
 				else
-					minetest.item_drop(stack, player, position)
+					core.item_drop(stack, player, position)
 				end
 			end
 		end

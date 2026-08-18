@@ -2,13 +2,13 @@
 --- @param stack ItemStack
 --- @return boolean
 local function is_fuel(stack)
-	return minetest.get_craft_result({ method = 'fuel', width = 1, items = { stack } }).time ~= 0
+	return core.get_craft_result({ method = 'fuel', width = 1, items = { stack } }).time ~= 0
 end
 
 --- @type NodeDefinition
 local inventory_callbacks = {
 	allow_metadata_inventory_put  = function(pos, listname, index, stack, player)
-		if minetest.is_protected(pos, player:get_player_name()) then
+		if core.is_protected(pos, player:get_player_name()) then
 			return 0
 		end
 		if listname == 'fuel' then
@@ -26,10 +26,10 @@ local inventory_callbacks = {
 		return 0
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		local meta  = minetest.get_meta(pos)
+		local meta  = core.get_meta(pos)
 		local inv   = meta:get_inventory()
 		local stack = inv:get_stack(from_list, from_index)
-		if minetest.is_protected(pos, player:get_player_name()) then
+		if core.is_protected(pos, player:get_player_name()) then
 			return 0
 		end
 		if to_list == 'fuel' then
@@ -47,7 +47,7 @@ local inventory_callbacks = {
 		return 0
 	end,
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-		if minetest.is_protected(pos, player:get_player_name()) then
+		if core.is_protected(pos, player:get_player_name()) then
 			return 0
 		end
 		return stack:get_count()

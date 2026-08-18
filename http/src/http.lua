@@ -13,7 +13,7 @@ end
 
 return {
 	init = function(http_api)
-		local http_debug_mode = minetest.settings:get_bool("http.debug", false)
+		local http_debug_mode = core.settings:get_bool("http.debug", false)
 		register_api(http_api, http_debug_mode)
 	end,
 }

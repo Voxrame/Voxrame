@@ -1,9 +1,9 @@
-local texture = minetest.texture
+local texture = core.texture
 
---- @class minetest.Tile
+--- @class core.Tile
 local Tile = {}
 
-minetest.tile = Tile
+core.tile = Tile
 
 --- @static
 --- @overload fun(anim_texture:string, period:number)

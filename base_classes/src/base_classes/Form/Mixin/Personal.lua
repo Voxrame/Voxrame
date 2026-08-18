@@ -1,4 +1,4 @@
-local Logger = minetest.get_mod_logger()
+local Logger = core.get_mod_logger()
 
 
 --- @class base_classes.Form.Mixin.Personal: base_classes.Form.Mixin
@@ -77,7 +77,7 @@ function Personal.mix_to(class)
 	end)
 	--- @param self base_classes.Form.Mixin.Personal
 	class.on_register(function(self)
-		minetest.register_on_leaveplayer(function(player, _)
+		core.register_on_leaveplayer(function(player, _)
 			self:player_leave(player)
 		end)
 	end)

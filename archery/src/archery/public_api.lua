@@ -7,7 +7,7 @@ local registered_throwables = {}
 --- @class archery.Definition: NodeDefinition
 --- @field inventory_image  string  texture name without file format (`.png`)
 --- @field description      string  item description shown on hovering on it in an inventory
---- @field groups           table   minetest item definition groups table
+--- @field groups           table   luanti item definition groups table
 --- @field uses             number  number of shots available until the archery item breaks
 
 --- @class archery.StageConf
@@ -29,7 +29,7 @@ local function register_bow(name, reg)
 		is_loaded = 1,
 	}, def.groups)
 
-	minetest.register_tool(name, {
+	core.register_tool(name, {
 		range             = def.range or 3,
 		description       = def.description,
 		wield_scale       = wield_scale,
@@ -53,7 +53,7 @@ local function register_bow(name, reg)
 	for i = 1, 3 do
 		local stage_name = name .. "_" .. i
 		stages[i]        = stage_name
-		minetest.register_tool(stage_name, {
+		core.register_tool(stage_name, {
 			description       = def.description,
 			range             = 0,
 			wield_scale       = wield_scale,
@@ -97,7 +97,7 @@ local function register_crossbow(name, reg)
 		allow_hold_abort = 1,
 	}, def.groups)
 
-	minetest.register_tool(name, {
+	core.register_tool(name, {
 		range             = def.range or 3,
 		description       = def.description,
 		wield_scale       = def.wield_scale or wield_scale,
@@ -128,7 +128,7 @@ local function register_crossbow(name, reg)
 			stage_groups_temp["crossbow_charged"] = 1
 		end
 
-		minetest.register_tool(stage_name, {
+		core.register_tool(stage_name, {
 			description       = def.description,
 			range             = 0,
 			wield_scale       = wield_scale,
@@ -166,7 +166,7 @@ local function register_throwable(name, reg)
 	local wield_scale  = { x = 2, y = 2, z = 0.75, }
 
 	if reg.definition.just_an_item == true then
-		minetest.register_craftitem(name, {
+		core.register_craftitem(name, {
 			range             = def.range or 3,
 			description       = def.description,
 			wield_scale       = def.wield_scale or wield_scale,
@@ -183,7 +183,7 @@ local function register_throwable(name, reg)
 			_used_projectiles = name,
 		})
 	else
-		minetest.register_tool(name, {
+		core.register_tool(name, {
 			range             = def.range or 3,
 			description       = def.description,
 			wield_scale       = def.wield_scale or wield_scale,
@@ -238,7 +238,7 @@ local function link_existing_throwable(name, reg)
 	projectiles.register_projectile(reg.projectile_reg.entity_name, reg.projectile_reg, true)
 
 	registered_throwables[name] = {
-		definition = minetest.registered_items[name],
+		definition = core.registered_items[name],
 		stage_conf = {
 			stages        = stages,
 			charging_time = reg.stage_conf.charging_time or {

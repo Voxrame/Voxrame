@@ -8,7 +8,7 @@ local callbacks = {}
 
 --- @param every_seconds number|nil|0
 --- @param callback      fun(player:Player,delta_time:number)
-minetest.foreach_player_every = function(every_seconds, callback)
+core.foreach_player_every = function(every_seconds, callback)
 	assert(type(callback) == "function")
 	callbacks[#callbacks + 1] = {
 		every_seconds = every_seconds or 0,
@@ -32,10 +32,10 @@ local function get_now_to_call(delta_time)
 	return now_to_call
 end
 
-minetest.register_globalstep(function(delta_time)
+core.register_globalstep(function(delta_time)
 	local now_to_call = get_now_to_call(delta_time)
 
-	for _, player in pairs(minetest.get_connected_players()) do
+	for _, player in pairs(core.get_connected_players()) do
 		for _, call in pairs(now_to_call) do
 			call(player, delta_time)
 		end

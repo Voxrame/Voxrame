@@ -17,12 +17,12 @@ local function mirrored_grid(grid)
 	return mirrored
 end
 
---- @param recipe minetest.CraftRecipe
-function minetest.register_mirrored_crafts(recipe)
-	--- @type minetest.CraftRecipe
+--- @param recipe core.CraftRecipe
+function core.register_mirrored_crafts(recipe)
+	--- @type core.CraftRecipe
 	local mirrored = table.copy(recipe)
 	mirrored.recipe = mirrored_grid(mirrored.recipe)
 
-	minetest.register_craft(recipe)
-	minetest.register_craft(mirrored)
+	core.register_craft(recipe)
+	core.register_craft(mirrored)
 end

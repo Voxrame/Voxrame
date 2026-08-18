@@ -10,7 +10,7 @@ local was_pressed = 1
 local pressed_at  = 2
 
 
-minetest.register_on_joinplayer(function(player)
+core.register_on_joinplayer(function(player)
 	local player_name = player:get_player_name()
 	if not player_name then return end
 
@@ -22,7 +22,7 @@ minetest.register_on_joinplayer(function(player)
 	end
 end)
 
-minetest.register_on_leaveplayer(function(player)
+core.register_on_leaveplayer(function(player)
 	local player_name = player:get_player_name()
 	if not player_name then return end
 
@@ -30,7 +30,7 @@ minetest.register_on_leaveplayer(function(player)
 end)
 
 
-minetest.foreach_player_every(0, function(player, _)
+core.foreach_player_every(0, function(player, _)
 	local player_name   = player:get_player_name()
 	local last_controls = last_player_controls[player_name]
 
@@ -38,7 +38,7 @@ minetest.foreach_player_every(0, function(player, _)
 		return
 	end
 
-	local now = minetest.get_us_time()
+	local now = core.get_us_time()
 	for key, is_pressed in pairs(player:get_player_control()) do
 
 		-- Нажатие

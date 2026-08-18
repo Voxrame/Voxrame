@@ -1,5 +1,5 @@
 local api = require("archery.processor.processing_api")
-local S = minetest.get_translator("archery")
+local S = core.get_translator("archery")
 
 -- Archery item charge on hold
 controls.on_hold(function(player, key, hold_time)
@@ -79,7 +79,7 @@ controls.on_release(function(player, key, hold_time)
 
 	local projectile_item = meta:get_string("loaded_projectile")
 	if projectile_item and api.projectile_shoot(player, ItemStack(projectile_item), power) then
-		minetest.sound_play(stack:get_definition()["_sound_on_release"], { object = player })
+		core.sound_play(stack:get_definition()["_sound_on_release"], { object = player })
 		local uses = api.reg_from_archery_item(stack:get_name()).definition.uses
 		stack:add_wear(65535/uses)
 	end
@@ -143,7 +143,7 @@ controls.on_press(function(player, key)
 	local projectile_item = meta:get_string("loaded_projectile")
 	local power = api.calculate_power(stack, nil, true)
 	if projectile_item and projectile_item ~= "" and api.projectile_shoot(player, ItemStack(projectile_item), power) then
-		minetest.sound_play(stack:get_definition()["_sound_on_release"], { object = player })
+		core.sound_play(stack:get_definition()["_sound_on_release"], { object = player })
 		local uses = api.reg_from_archery_item(stack:get_name()).definition.uses
 		stack:add_wear(65535/uses)
 	end
@@ -152,7 +152,7 @@ controls.on_press(function(player, key)
 	if new_stack then
 		player:set_wielded_item(new_stack)
 		if not meta:contains("loaded_projectile") then
-			minetest.chat_send_player(player:get_player_name(), S("No projectile loaded, discharged safely."))
+			core.chat_send_player(player:get_player_name(), S("No projectile loaded, discharged safely."))
 		end
 		meta:set_string("loaded_projectile", "")
 		inv:set_stack("main", wield_index, new_stack)
@@ -185,7 +185,7 @@ controls.on_release(function(player, key)
 		local new_meta = new_stack:get_meta()
 		if new_meta:contains("loaded_projectile") then
 			local projectile_item = new_meta:get_string("loaded_projectile")
-			minetest.give_or_drop(player, projectile_item)
+			core.give_or_drop(player, projectile_item)
 			new_meta:set_string("loaded_projectile", "")
 		end
 		api.player_reset_slowdown(player)
@@ -226,7 +226,7 @@ controls.on_release(function(player, key, hold_time)
 
 	local projectile_item = archery.get_throwables()[stack:get_name()].entity_name
 	if projectile_item and api.projectile_shoot(player, new_stack, power) then
-		minetest.sound_play(stack:get_definition()["_sound_on_release"], { object = player })
+		core.sound_play(stack:get_definition()["_sound_on_release"], { object = player })
 		stack:take_item(1)
 	end
 
@@ -249,7 +249,7 @@ wield_item.on_index_change(function(player, _, player_last_wield_index)
 		local meta = new_stack:get_meta()
 		if meta:contains("loaded_projectile") then
 			local projectile_item = meta:get_string("loaded_projectile")
-			minetest.give_or_drop(player, projectile_item)
+			core.give_or_drop(player, projectile_item)
 			meta:set_string("loaded_projectile", "")
 		end
 		inv:set_stack("main", player_last_wield_index, stack)

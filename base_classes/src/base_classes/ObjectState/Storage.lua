@@ -11,7 +11,7 @@ function Storage.get_state_of(object)
 	end
 
 	return object:is_player()
-		and minetest.deserialize(object:get_meta():get("object_state") or "return {}")
+		and core.deserialize(object:get_meta():get("object_state") or "return {}")
 		or  object:get_luaentity().object_state or {} --- @diagnostic disable-line: undefined-field
 end
 
@@ -26,7 +26,7 @@ function Storage.set_state_of(object, state_table)
 		return false
 	end
 
-	local state_string = minetest.serialize(state_table)
+	local state_string = core.serialize(state_table)
 
 	if object:is_player() then
 		local meta = object:get_meta()

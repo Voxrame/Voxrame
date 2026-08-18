@@ -1,9 +1,9 @@
 
 
---- @class minetest.Texture
+--- @class core.Texture
 local Texture = {}
 
-minetest.texture = Texture
+core.texture = Texture
 
 --- @static
 --- @overload fun(texture:string, times:number)

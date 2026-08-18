@@ -1,12 +1,12 @@
 
-local http_api = minetest.request_http_api()
+local http_api = core.request_http_api()
 if not http_api then
-	minetest.log(
+	core.log(
 		"error",
 		"[http] You should add mod `http` into `secure.http_mods` setting in your `minetest.conf`.")
 	return
 end
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require("http").init(http_api)
 end)

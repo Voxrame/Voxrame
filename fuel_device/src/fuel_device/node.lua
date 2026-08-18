@@ -50,7 +50,7 @@ end
 ---@param base_def            NodeDefinition
 local function register_node(fd_node_def, common, inventory_callbacks, base_def)
 	base_def = table.merge(common, table.merge(inventory_callbacks, base_def))
-	minetest.register_node(fd_node_def.node_name, table.overwrite(base_def, fd_node_def.definition))
+	core.register_node(fd_node_def.node_name, table.overwrite(base_def, fd_node_def.definition))
 end
 
 --- @param inactive_full_name string                          inactive node name with ':' prefix
@@ -62,7 +62,7 @@ local function register_lbm(inactive_full_name, node_names, DeviceClass)
 	--- @cast mod_name  string
 	--- @cast node_name string
 
-	minetest.register_lbm({
+	core.register_lbm({
 		label             = mod_name:first_to_upper() .. ' ' .. node_name .. ' initialization',
 		name              = inactive_full_name .. '_init',
 		nodenames         = { node_names.inactive, node_names.active },
@@ -78,7 +78,7 @@ end
 --- @generic GenericProcessor: fuel_device.Processor
 ---
 --- @param device_name       string                       name of your device.
---- @param craft_method      string                       name of craft method (use `minetest.register_craft_method()`).
+--- @param craft_method      string                       name of craft method (use `core.register_craft_method()`).
 --- @param nodes_definitions fuel_device.NodesDefinitions partial nodes definitions (`drawtype` & `tiles` is enough).
 --- @param form              fuel_device.node.Form        any table that implements `fuel_device.node.Form` interface.
 --- @param size_of           fuel_device.Device.InvSize   sizes of corresponding inventories.

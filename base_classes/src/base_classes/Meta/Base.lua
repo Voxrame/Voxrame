@@ -90,13 +90,13 @@ function BaseMeta:get_typified(field_type, key, default)
 		local value = self.meta:get(key)
 		if value == nil then  return default  end
 
-		return minetest.is_yes(tonumber(value))
+		return core.is_yes(tonumber(value))
 	elseif field_type == FieldType.INTEGER then
 		return tonumber(self.meta:get(key) or default)
 	elseif field_type == FieldType.STRING then
 		return self.meta:get(key) or default
 	elseif field_type == FieldType.TABLE then
-		return minetest.parse_json(self.meta:get(key) or 'null', default)
+		return core.parse_json(self.meta:get(key) or 'null', default)
 	else
 		errorf('Something went wrong...')
 	end
@@ -120,7 +120,7 @@ function BaseMeta:set_typified(field_type, key, value)
 	key = self.key_prefix .. key
 
 	if field_type == FieldType.BOOLEAN then
-		self.meta:set_int(key, minetest.is_yes(value) and 1 or 0)
+		self.meta:set_int(key, core.is_yes(value) and 1 or 0)
 	elseif field_type == FieldType.INTEGER then
 		--- @diagnostic disable-next-line: param-type-not-match -- TODO: consider to use `tonumber(value) or 0` instead
 		self.meta:set_int(key, tonumber(value))
@@ -132,7 +132,7 @@ function BaseMeta:set_typified(field_type, key, value)
 			errorlf('Type mismatch for meta-field `%s`: `table` expected, got `%s`', 3, key, type(value))
 		end
 		--- @diagnostic disable-next-line: param-type-not-match -- we checked the type above and that not table.is_empty
-		self.meta:set_string(key, table_is_empty(value) and '[]' or minetest.write_json(value))
+		self.meta:set_string(key, table_is_empty(value) and '[]' or core.write_json(value))
 	else
 		errorf('Something went wrong...')
 	end

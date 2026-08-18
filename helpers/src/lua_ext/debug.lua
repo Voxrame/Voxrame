@@ -4,8 +4,8 @@ local debug_getinfo
 
 local PROJECT_LOCATION = ''
 
-local debug_mode   = minetest.settings:get_bool('debug', false)
-local x_scheme_tpl = debug_mode	and minetest.settings:get('debug.editor_x_scheme_tpl') or  nil
+local debug_mode   = core.settings:get_bool('debug', false)
+local x_scheme_tpl = debug_mode	and core.settings:get('debug.editor_x_scheme_tpl') or  nil
 
 term.supports_osc8 = core.settings:get_bool('debug.terminal.supports_osc8', term.supports_osc8)
 

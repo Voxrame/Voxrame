@@ -62,7 +62,7 @@ end
 --- @internal
 --- @static
 function Kind.init()
-	minetest.register_on_joinplayer(function(player, last_login)
+	core.register_on_joinplayer(function(player, last_login)
 		-- `last_login` is nil, if player is new (same as `register_on_newplayer`)
 		local is_new_player = last_login == nil
 		for _, kind in ipairs(Kind.registered) do

@@ -1,4 +1,4 @@
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require('physics').init(mod)
 end)

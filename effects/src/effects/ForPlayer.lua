@@ -3,7 +3,7 @@ local pairs, unpack
 
 local Registered = require('effects.Registered')
 local Processor  = require('effects.Processor')
-local Logger     = minetest.get_mod_logger()
+local Logger     = core.get_mod_logger()
 
 
 --- @class effects.ForPlayer.Active

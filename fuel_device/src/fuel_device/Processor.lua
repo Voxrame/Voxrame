@@ -1,7 +1,7 @@
 local math_floor
     = math.floor
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --- - Returns whether processing possible &
@@ -14,7 +14,7 @@ local S = minetest.get_mod_translator()
 --- @param method string
 --- @return boolean, RecipeOutput?, RecipeInput?, RecipeOutput?, RecipeInput?
 local function process_possible(inv, meta, method)
-	local result_source, remaining_source = minetest.get_craft_result({
+	local result_source, remaining_source = core.get_craft_result({
 		method = method,
 		type   = 'cooking',
 		width  = inv:get_size('src'),
@@ -25,7 +25,7 @@ local function process_possible(inv, meta, method)
 		return false, nil, nil, nil, nil
 	end
 
-	local result_fuel, remaining_fuel = minetest.get_craft_result({
+	local result_fuel, remaining_fuel = core.get_craft_result({
 		method = 'fuel',
 		width  = inv:get_size('fuel'),
 		items  = inv:get_list('fuel'),
@@ -174,7 +174,7 @@ function Processor:on_timer(position, elapsed)
 		self:act(position)
 	end
 
-	minetest.get_node_timer(position):set(self.DeviceClass.TIMER_TICK, elapsed % self.DeviceClass.TIMER_TICK)
+	core.get_node_timer(position):set(self.DeviceClass.TIMER_TICK, elapsed % self.DeviceClass.TIMER_TICK)
 end
 
 

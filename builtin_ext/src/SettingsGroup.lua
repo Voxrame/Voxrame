@@ -28,14 +28,14 @@ function SettingsGroup:load(from_settings)
 end
 
 --- If no `from_settings` table specified,
---- the all `minetest.settings:to_table()` is used to search & filter settings for the Group.
+--- the all `core.settings:to_table()` is used to search & filter settings for the Group.
 --- @overload fun(group_name:string)
 --- @param group_name string
 --- @param from_settings table<string,string> optional table of all settings from which the settings of Group to load.
 --- @return Voxrame.SettingsGroup
 function SettingsGroup:new(group_name, from_settings)
 	self = setmetatable({}, { __index = self })
-	from_settings = from_settings or minetest.settings:to_table()
+	from_settings = from_settings or core.settings:to_table()
 
 	self.group_name = group_name
 	self.settings   = self:load(from_settings)
@@ -69,7 +69,7 @@ end
 --- @param name string name of the setting (key). Stripped key names are used (without group-name prefixes).
 --- @return Position|nil
 function SettingsGroup:get_position(name)
-	return minetest.string_to_pos(self.settings[name])
+	return core.string_to_pos(self.settings[name])
 end
 
 --- @overload fun(name:string)
@@ -82,7 +82,7 @@ function SettingsGroup:get_bool(name, default)
 
 	local value = self.settings[name]
 
-	return value and minetest.is_yes(value) or default
+	return value and core.is_yes(value) or default
 end
 
 

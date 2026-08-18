@@ -1,5 +1,5 @@
 local pairs, table_insert, vector_new, id
-	= pairs, table.insert, vector.new, minetest.get_content_id
+	= pairs, table.insert, vector.new, core.get_content_id
 
 
 local on_generated_is_registered    = false
@@ -123,22 +123,22 @@ end
 
 -- luacheck: no max line length
 --- @param callback fun(minp:Position, maxp:Position, data:table, param2_data:table, area:VoxelArea, rooms_centers:Position[], rooms_walls:RoomWalls[])
-minetest.register_on_dungeon_generated = function(callback)
+core.register_on_dungeon_generated = function(callback)
 	table_insert(on_dungeon_generated_handlers, callback)
 
 	if on_generated_is_registered then
 		return
 	end
 
-	minetest.set_gen_notify("dungeon")
-	minetest.register_on_generated(function(minp, maxp, seed)
-		local notify = minetest.get_mapgen_object("gennotify")
+	core.set_gen_notify("dungeon")
+	core.register_on_generated(function(minp, maxp, seed)
+		local notify = core.get_mapgen_object("gennotify")
 		if not notify or not notify.dungeon then
 			return
 		end
 
 		local is_on_mapgen, with_param2 = true, true
-		minetest.with_map_part_do(minp, maxp, function(area, data, param2_data)
+		core.with_map_part_do(minp, maxp, function(area, data, param2_data)
 
 			local rooms_walls = detect_rooms_walls(data, area, notify.dungeon)
 

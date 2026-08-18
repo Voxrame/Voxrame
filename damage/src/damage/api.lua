@@ -7,7 +7,7 @@ local Periodical = require('damage.Periodical')
 --- @param player    Player
 --- @param hp_change number
 --- @param reason    PlayerHPChangeReason
-minetest.register_on_player_hpchange(function(player, hp_change, reason)
+core.register_on_player_hpchange(function(player, hp_change, reason)
 	if hp_change < 0 then
 		local damage_type = Type.detect(reason)
 		hp_change = Type:of(damage_type):modify_hp(player, hp_change, reason)

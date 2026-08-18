@@ -1,5 +1,5 @@
-GRAVITY = minetest.settings:get("movement_gravity") or 9.81
+GRAVITY = core.settings:get("movement_gravity") or 9.81
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require("projectiles").init()
 end)

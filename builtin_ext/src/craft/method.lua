@@ -1,6 +1,6 @@
 -- Unexpectedly:
--- minetest.register_craft({ ... type = 'shaped' | 'shapeless' | 'toolrepair' | 'cooking' | 'fuel' })
--- minetest.get_craft_result({ ... method = 'normal' | 'cooking' | 'fuel' })
+-- core.register_craft({ ... type = 'shaped' | 'shapeless' | 'toolrepair' | 'cooking' | 'fuel' })
+-- core.get_craft_result({ ... method = 'normal' | 'cooking' | 'fuel' })
 
 -- Ok, Lets try fix this. And add custom craft methods.
 
@@ -9,24 +9,24 @@ local assert, pairs, ipairs, table_copy, table_insert, math_min, type
 
 
 
---- @class minetest.CraftType
-minetest.CraftType = {
+--- @class core.CraftType
+core.CraftType = {
 	NORMAL  = 'normal',
 	COOKING = 'cooking',
 	FUEL    = 'fuel',
 	REPAIR  = 'repair', -- ?
 }
---- @class minetest.CraftMethod
-minetest.CraftMethod = {
-	--- like in minetest itself.
+--- @class core.CraftMethod
+core.CraftMethod = {
+	--- like in Luanti itself.
 	DEFAULT = 'default',
 }
 local mt_methods = { 'normal', 'cooking', 'fuel' }
 
 
---- @class minetest.CraftRecipe
---- @field type      string     one of minetest.CraftType.<CONST>. default: `"normal"`
---- @field method    string     one of minetest.CraftMethod.<CONST>. default: `"default"` (as in minetest)
+--- @class core.CraftRecipe
+--- @field type      string     one of core.CraftType.<CONST>. default: `"normal"`
+--- @field method    string     one of core.CraftMethod.<CONST>. default: `"default"` (as in Luanti)
 --- @field shapeless boolean    default: `false`. Not used as for now. (It will be better, if in MT it will separate)
 --- @field input     string[][] array like craft grid slots with tech names of ingredients ({{`"mod:node_name"`}})
 --- @field output    string     result item tech name (`"mod:node_name"`)
@@ -35,14 +35,14 @@ local mt_methods = { 'normal', 'cooking', 'fuel' }
 --- @field cooktime  number     alias for `time` filed.
 
 
---- @type table<string,table<string,table<string,minetest.CraftRecipe[]>>>
+--- @type table<string,table<string,table<string,core.CraftRecipe[]>>>
 local method_registered_recipes = {
 	-- [method] = {
 	--     [type] = {
 	--         [output] = {
-	--             <minetest.CraftRecipe>,
-	--             <minetest.CraftRecipe>,
-	--             <minetest.CraftRecipe>,
+	--             <core.CraftRecipe>,
+	--             <core.CraftRecipe>,
+	--             <core.CraftRecipe>,
 	--             ...
 	--         }
 	--     }
@@ -89,7 +89,7 @@ end
 --- @return ItemStack[][]
 local function to_grid(items, width)
 	if not items or not width or width == 0 then
-		minetest.log('error', 'Args `items` or `width` comes as `nil` or `0`')
+		core.log('error', 'Args `items` or `width` comes as `nil` or `0`')
 		return {}
 	end
 
@@ -104,7 +104,7 @@ local function to_grid(items, width)
 	end
 	if #row ~= 0 then
 		grid[#grid+1] = row
-		minetest.log('warning', 'Last row is less than others')
+		core.log('warning', 'Last row is less than others')
 	end
 
 	return grid
@@ -125,23 +125,23 @@ local function foreach_item_in_grid(grid, callback)
 end
 
 --- Its not necessary to use this function.
---- Just use `minetest.CraftType.YOUR_TYPE = 'your-type``
+--- Just use `core.CraftType.YOUR_TYPE = 'your-type``
 --- @param name string
-function minetest.register_craft_method(name)
-	minetest.CraftMethod[name:upper()] = name:lower()
+function core.register_craft_method(name)
+	core.CraftMethod[name:upper()] = name:lower()
 	method_registered_recipes[name:lower()] = {}
 end
 
 
---- @param recipe minetest.CraftRecipe
+--- @param recipe core.CraftRecipe
 local function validate_recipe_for_custom_method(recipe)
 	assert(
-		recipe.type:is_one_of({minetest.CraftType.NORMAL, minetest.CraftType.COOKING}),
+		recipe.type:is_one_of({core.CraftType.NORMAL, core.CraftType.COOKING}),
 		'sorry, only `"normal"` & `"cooking"` type currently supported for custom methods'
 	)
 
 	assert(type(recipe.method) == 'string', '`recipe.method` must be of type `string`')
-	assert(recipe.method:is_one_of(minetest.CraftMethod), 'unknown craft method: ' .. recipe.method)
+	assert(recipe.method:is_one_of(core.CraftMethod), 'unknown craft method: ' .. recipe.method)
 	if not method_registered_recipes[recipe.method] then
 		method_registered_recipes[recipe.method] = {}
 	end
@@ -168,22 +168,22 @@ local function validate_recipe_for_custom_method(recipe)
 	assert(recipe.replacements == nil, 'sorry, `recipe.replacements` currently not supported for custom methods')
 end
 
-local mt_register_craft = minetest.register_craft
+local mt_register_craft = core.register_craft
 
 --- Set `recipe.method` to your own to use non MT standard craft system.
---- @param recipe minetest.CraftRecipe
-function minetest.register_craft(recipe)
-	local method = recipe.method or minetest.CraftMethod.DEFAULT
+--- @param recipe core.CraftRecipe
+function core.register_craft(recipe)
+	local method = recipe.method or core.CraftMethod.DEFAULT
 
-	-- Minetest
-	if method == minetest.CraftMethod.DEFAULT then
+	-- Luanti
+	if method == core.CraftMethod.DEFAULT then
 		recipe.recipe = recipe.recipe or recipe.input
 		recipe.input  = nil
 		return mt_register_craft(recipe)
 	end
 
 	-- Custom
-	recipe.type      = recipe.type or minetest.CraftType.NORMAL
+	recipe.type      = recipe.type or core.CraftType.NORMAL
 	recipe.shapeless = recipe.shapeless == nil and false
 	recipe.input     = recipe.input or recipe.recipe
 	recipe.recipe    = nil
@@ -210,7 +210,7 @@ end
 local EMPTY_OUTPUT = { time = 0, replacements = {}, item = ItemStack("") }
 
 --- @type fun(input: RecipeInput): RecipeOutput, RecipeInput
-local mt_get_craft_result = minetest.get_craft_result
+local mt_get_craft_result = core.get_craft_result
 
 
 --- @param stack       ItemStack
@@ -224,7 +224,7 @@ local function take_item(stack, recipe_item)
 	if recipe_item_name:starts_with('group:') then
 		local group = recipe_item_name:split(':')[2]
 		if
-			minetest.get_item_group(stack:get_name(), group) == 0 or
+			core.get_item_group(stack:get_name(), group) == 0 or
 			stack:take_item(recipe_item_count):get_count() ~= recipe_item_count
 		then
 			return false
@@ -242,7 +242,7 @@ local function take_item(stack, recipe_item)
 end
 
 --- @param input  RecipeInput
---- @param recipe minetest.CraftRecipe
+--- @param recipe core.CraftRecipe
 --- @return RecipeInput|nil
 local function decrement_input(input, recipe)
 	input = table_copy(input)
@@ -257,7 +257,7 @@ local function decrement_input(input, recipe)
 
 		local stack = input.items[(i - 1) * input.width + j]
 		if not stack then
-			minetest.log('error', 'get_craft_result(): decrement_input() failed')
+			core.log('error', 'get_craft_result(): decrement_input() failed')
 			item_not_taken = true
 			return true -- break `foreach_item_in_grid()` cycle
 		end
@@ -287,7 +287,7 @@ local function item_is_correspond_to_recipe(item, recipe_item)
 	if recipe_item_name:starts_with('group:') then
 		local group = recipe_item_name:split(':')[2]
 		if
-			minetest.get_item_group(item:get_name(), group) == 0 or
+			core.get_item_group(item:get_name(), group) == 0 or
 			item:get_count() < recipe_item_count
 		then
 			return false
@@ -323,19 +323,19 @@ local function items_is_correspond_to_recipe(items_grid, recipe_grid)
 end
 
 --- @param input RecipeInput you can use your own `input.method`
---- @return RecipeOutput, RecipeInput, minetest.CraftRecipe?
-function minetest.get_craft_result(input)
+--- @return RecipeOutput, RecipeInput, core.CraftRecipe?
+function core.get_craft_result(input)
 	if not input.method or input.method:is_one_of(mt_methods) then
 		return mt_get_craft_result(input)
 	end
 
-	if not input.method:is_one_of(minetest.CraftMethod) then
-		minetest.log('error', 'unknown craft method: ' .. input.method)
+	if not input.method:is_one_of(core.CraftMethod) then
+		core.log('error', 'unknown craft method: ' .. input.method)
 		return table_copy(EMPTY_OUTPUT), input
 	end
 
 	--- @diagnostic disable-next-line: inject-field, undefined-field # native luabti `RecipeInput` does not have `type`
-	input.type = input.type or minetest.CraftType.NORMAL
+	input.type = input.type or core.CraftType.NORMAL
 
 	local shifted_grid = shift_top_left(to_grid(input.items, input.width))
 
@@ -352,7 +352,7 @@ function minetest.get_craft_result(input)
 
 				output.item = ItemStack(recipe.output)
 				--- @diagnostic disable-next-line: undefined-field # native luabti `RecipeInput` does not have `type`
-				if input.type == minetest.CraftType.COOKING then
+				if input.type == core.CraftType.COOKING then
 					output.time = recipe.time
 				end
 
@@ -366,7 +366,7 @@ end
 
 
 --- @param output string
---- @return minetest.CraftRecipe|nil
+--- @return core.CraftRecipe|nil
 local function find_craft_recipe(output)
 	for method, method_recipes in pairs(method_registered_recipes) do
 		for craft_type, type_recipes in pairs(method_recipes) do
@@ -379,14 +379,14 @@ local function find_craft_recipe(output)
 	end
 end
 
-local mt_get_craft_recipe = minetest.get_craft_recipe
+local mt_get_craft_recipe = core.get_craft_recipe
 --- @param output string
---- @return RecipeInput|minetest.CraftRecipe|nil
-function minetest.get_craft_recipe(output, method, craft_type)
-	method     = method     or minetest.CraftMethod.DEFAULT
-	craft_type = craft_type or minetest.CraftType.NORMAL
+--- @return RecipeInput|core.CraftRecipe|nil
+function core.get_craft_recipe(output, method, craft_type)
+	method     = method     or core.CraftMethod.DEFAULT
+	craft_type = craft_type or core.CraftType.NORMAL
 
-	if method == minetest.CraftMethod.DEFAULT then
+	if method == core.CraftMethod.DEFAULT then
 		local found = mt_get_craft_recipe(output)
 		if found then
 			return found

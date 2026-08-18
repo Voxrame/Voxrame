@@ -1,4 +1,4 @@
-local S_tt = minetest.get_translator("tt_base")
+local S_tt = core.get_translator("tt_base")
 
 --- @type table<string, projectiles.Registration>
 local registered_projectiles = {}
@@ -31,7 +31,7 @@ local function register_projectile(name, reg, not_register_item)
 		return
 	end
 
-	minetest.register_craftitem(name, table.overwrite({
+	core.register_craftitem(name, table.overwrite({
 		_tt_help = S_tt("Damage: @1", reg.damage_tt)
 	}, def))
 end
@@ -40,10 +40,10 @@ end
 --- @param pos            Position   node position
 --- @param in_nazgul_area boolean    flag that the node is in an area protected from explosions
 local flame_node = function(pos, in_nazgul_area)
-	local n = minetest.get_node(pos).name
-	local node_desc = minetest.registered_nodes[n]
+	local n = core.get_node(pos).name
+	local node_desc = core.registered_nodes[n]
 	if node_desc == nil then
-		minetest.log("error", "Attempt to flame unknown node: "..n..
+		core.log("error", "Attempt to flame unknown node: "..n..
 				" ("..pos.x..","..pos.y..","..pos.z..")")
 		return
 	end
@@ -55,7 +55,7 @@ local flame_node = function(pos, in_nazgul_area)
 	if node_desc.groups.forbidden == nil then
 		if node_desc.groups.flammable or math.random(1, 100) <= 30 then
 			if n == "air" or not in_nazgul_area then
-				minetest.set_node(pos, { name = "fire:basic_flame" })
+				core.set_node(pos, { name = "fire:basic_flame" })
 			end
 		else
 			if not in_nazgul_area then
@@ -63,7 +63,7 @@ local flame_node = function(pos, in_nazgul_area)
 				if node_desc.on_blast then
 					node_desc.on_blast(pos)
 				end
-				minetest.remove_node(pos)
+				core.remove_node(pos)
 			end
 		end
 	end

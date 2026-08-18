@@ -72,10 +72,10 @@ function BaseForm:new(player, ...)
 	return self
 end
 
---- Shorten for `minetest.get_player_by_name(self.player_name)`
+--- Shorten for `core.get_player_by_name(self.player_name)`
 --- @return Player?
 function BaseForm:player()
-	return minetest.get_player_by_name(self.player_name)
+	return core.get_player_by_name(self.player_name)
 end
 
 --- Override this method instead constructor (`:new()`), if you want to add some logic on instance creating.
@@ -99,7 +99,7 @@ end
 ---
 --- Example:
 --- ```
---- minetest.register_tool('...:...', {
+--- core.register_tool('...:...', {
 ---     on_use = function(itemstack, player, pointed_thing)
 ---         MyForm:new(player):open(my_param)
 --- ```
@@ -107,7 +107,7 @@ end
 --- @public
 function BaseForm:open(...)
 	self.event:trigger(self.event.Type.on_open, self, ...)
-	minetest.show_formspec(self.player_name, self.NAME, self:get_spec(...))
+	core.show_formspec(self.player_name, self.NAME, self:get_spec(...))
 end
 
 --- This function should be used when you override method `:handler()`,
@@ -147,11 +147,11 @@ function BaseForm:trigger_close(...)
 	self.event:trigger(self.event.Type.on_close, self, ...)
 end
 
---- Triggers `on_close` event & call `minetest.close_formspec()`.
+--- Triggers `on_close` event & call `core.close_formspec()`.
 --- @public
 function BaseForm:close(...)
 	self.event:trigger(self.event.Type.on_close, self, ...)
-	minetest.close_formspec(self.player_name, self.NAME)
+	core.close_formspec(self.player_name, self.NAME)
 end
 
 --- Override this method to implement some form handling and your own logic.
@@ -195,7 +195,7 @@ end
 function BaseForm:register(...)
 	self.event:trigger(self.event.Type.on_register, self, ...)
 
-	minetest.register_on_player_receive_fields(function(player, form_name, fields)
+	core.register_on_player_receive_fields(function(player, form_name, fields)
 		self:handler(player, form_name, fields)
 	end)
 

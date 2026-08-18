@@ -37,7 +37,7 @@ function Segment:set_color(color)
 	return self
 end
 
---- You can use `minetest.colorize()` for parts of your value.
+--- You can use `core.colorize()` for parts of your value.
 --- Also yuu can use callback function for calculate your value.
 --- @param value string|nametag.NameTag.Segment.value_getter that will be displayed in this segment of NameTag.
 --- @param color string|nil override color for this segment of NameTag. Default sets by `nametag.segments.add()`
@@ -69,14 +69,14 @@ function Segment:build()
 		or  value
 
 	return self.color
-		and minetest.colorize(self.color, displayed_value)
+		and core.colorize(self.color, displayed_value)
 		or  displayed_value
 end
 
 --- Updates displaying name-tag
 --- @overload fun()
 --- @overload fun(value:string|nametag.NameTag.Segment.value_getter)
---- @param value string that will be displayed in this segment of NameTag. You can use `minetest.colorize()` for parts.
+--- @param value string that will be displayed in this segment of NameTag. You can use `core.colorize()` for parts.
 --- @param color string override color for this segment of NameTag. Default sets by `nametag.segments.add()`
 function Segment:update(value, color)
 	if value then self:set_value(value, color) end

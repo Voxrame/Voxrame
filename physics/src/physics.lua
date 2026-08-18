@@ -32,11 +32,11 @@ end
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		register_api()
 
-		minetest.register_on_leaveplayer(function(player)
+		core.register_on_leaveplayer(function(player)
 			player_physics[player:get_player_name()] = nil
 		end)
 	end,

@@ -42,7 +42,7 @@ function table.keys_of(table, value)
 	return #found_keys ~= 0 and found_keys or nil
 end
 
--- TODO: see https://github.com/minetest/minetest/issues/14906 discussion result
+-- TODO: see https://github.com/luanti-org/luanti/issues/14906 discussion result
 -- --- @param table table
 -- --- @param value any
 -- --- @return boolean

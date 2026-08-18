@@ -57,7 +57,7 @@ function Periodical:stop(type)
 end
 
 --- @param player Player
-minetest.foreach_player_every(1, function(player, delta_time)
+core.foreach_player_every(1, function(player, delta_time)
 	local now = os_time()
 	local active_damages = Periodical:for_player(player):active()
 

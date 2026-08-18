@@ -79,7 +79,7 @@ end
 --- @return NodeMetaRef
 function Device:get_meta()
 	if not self.meta then
-		self.meta = minetest.get_meta(self.position)
+		self.meta = core.get_meta(self.position)
 	end
 
 	return self.meta
@@ -110,19 +110,19 @@ function Device:activate(hint)
 	local meta         = self:get_meta()
 	local percent      = math_floor(meta:get_int('fuel_time') / meta:get_int('fuel_totaltime') * 100)
 	local item_percent = math_floor(meta:get_int('src_time') / meta:get_int('src_totaltime') * 100)
-	minetest.swap_node_if_not_same(self.position, self.node_name.active)
+	core.swap_node_if_not_same(self.position, self.node_name.active)
 	self:get_meta():set_string('infotext', self.NAME .. ': ' .. hint .. ' (' .. percent .. '%)')
 	self:get_meta():set_string('formspec', self.form.get_spec('active', percent, item_percent))
-	minetest.get_node_timer(self.position):start(self.TIMER_TICK)
+	core.get_node_timer(self.position):start(self.TIMER_TICK)
 end
 
 --- Sets Node into inactive device with new hint.
 --- @public
 --- @param hint string text shown in `infotext` after `"<Device.NAME>: "`
 function Device:deactivate(hint)
-	minetest.get_node_timer(self.position):stop()
+	core.get_node_timer(self.position):stop()
 	reset_meta_times(self:get_meta())
-	minetest.swap_node_if_not_same(self.position, self.node_name.inactive)
+	core.swap_node_if_not_same(self.position, self.node_name.inactive)
 	self:get_meta():set_string('infotext', self.NAME .. ': ' .. hint)
 	self:get_meta():set_string('formspec', self.form.get_spec('inactive'))
 end

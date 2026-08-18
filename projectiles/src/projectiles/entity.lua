@@ -100,7 +100,7 @@ local function punch_target(projectile, target, damage_groups, remove_after_hit,
 
 	if remove_after_hit ~= true then
 		local pos = projectile.object:get_pos()
-		minetest.add_item(pos, projectile._projectile_stack)
+		core.add_item(pos, projectile._projectile_stack)
 	end
 
 	projectile.object:remove()
@@ -136,7 +136,7 @@ local function play_sound_on_hit(entity, hit_thing, pos)
 			(not entity._sound_played_times or entity._sound_played_times < 5)) then
 		entity._time_from_last_hit = 0
 		entity._sound_played_times = (entity._sound_played_times or 0) + 1
-		minetest.sound_play(entity["_sound_hit_"..hit_thing], sound_spec)
+		core.sound_play(entity["_sound_hit_"..hit_thing], sound_spec)
 	end
 end
 
@@ -168,7 +168,7 @@ end
 --- Hit handling depending on target
 --- @param projectile    projectiles.Entity.LuaEntity projectile entity
 --- @param target        ObjectRef                    target entity
---- @param damage_groups table                        damage groups table (see Minetest API)
+--- @param damage_groups table                        damage groups table (see Luanti API)
 --- @param velocity      vector                       projectile velocity
 local function hit_handling(projectile, target, damage_groups, velocity)
 	local function hit()
@@ -197,7 +197,7 @@ end
 -- Collision handling
 --- @param projectile    projectiles.Entity.LuaEntity projectile entity
 --- @param move_result   table                        table with collision info
---- @param damage_groups table                        damage groups table (see Minetest API)
+--- @param damage_groups table                        damage groups table (see Luanti API)
 local function collision_handling(projectile, move_result, damage_groups)
 	local vel = projectile.object:get_velocity()
 
@@ -244,7 +244,7 @@ local function flight_processing(projectile, environment, rotation)
 	if vel.y ~= 0 then
 		math.randomseed(os.time())
 		if environment == "water" then
-			minetest.add_particlespawner({
+			core.add_particlespawner({
 				attached = projectile.object,
 				size = { min = 2, max = 4.5 },
 				pos = {
@@ -255,7 +255,7 @@ local function flight_processing(projectile, environment, rotation)
 				texture = particle_texture,
 			})
 		else
-			minetest.add_particlespawner({
+			core.add_particlespawner({
 				attached = projectile.object,
 				texture = particle_texture,
 			})
@@ -268,7 +268,7 @@ end
 --- @param position Position
 --- @return "normal"|"water"
 local function get_environment_at(position)
-	local node_groups = minetest.registered_nodes[core.get_node(position).name].groups
+	local node_groups = core.registered_nodes[core.get_node(position).name].groups
 
 	return (node_groups and node_groups.water ~= nil)
 		and "water"
@@ -287,7 +287,7 @@ local register_projectile_entity = function(name, entity_reg)
 		visual_size            = { x = 1.5, y = 1.5, z = 1.5 },
 		use_texture_alpha      = false,
 	}
-	minetest.register_entity(name, {
+	core.register_entity(name, {
 		initial_properties = table.merge(initial_properties, entity_reg.initial_properties),
 		_life_timer         = entity_reg.life_timer or 90,
 		_shooter            = nil,
@@ -312,10 +312,10 @@ local register_projectile_entity = function(name, entity_reg)
 
 			local stack = self._projectile_stack
 			--- @diagnostic disable-next-line # TODO: тут что-то странное (is_in_creative = not_in_creative_inventory)
-			local is_in_creative = minetest.registered_items[stack:get_name()].groups.not_in_creative_inventory
+			local is_in_creative = core.registered_items[stack:get_name()].groups.not_in_creative_inventory
 
 			if update_life_timer(self, dtime) and not is_in_creative then
-				minetest.add_item(pos, stack)
+				core.add_item(pos, stack)
 			end
 		end,
 		on_punch       = function(self, puncher, time_from_last_punch, tool_capabilities, dir, damage)
@@ -331,13 +331,13 @@ local register_projectile_entity = function(name, entity_reg)
 				return
 			end
 			self.object:remove()
-			minetest.give_or_drop(puncher, self._projectile_stack)
+			core.give_or_drop(puncher, self._projectile_stack)
 		end,
 		on_activate    = function(self, staticdata, dtime_s)
 			if not staticdata or staticdata == "" then
 				return
 			end
-			local staticdata_table = minetest.deserialize(staticdata)
+			local staticdata_table = core.deserialize(staticdata)
 			if not staticdata_table then
 				return
 			end
@@ -353,7 +353,7 @@ local register_projectile_entity = function(name, entity_reg)
 			if projectile_stack then
 				staticdata_table._projectile_stack = projectile_stack:to_table()
 			end
-			return minetest.serialize(staticdata_table)
+			return core.serialize(staticdata_table)
 		end,
 		_on_collision  = function(self, moveresult)
 			self._collision_count = self._collision_count + 1
@@ -365,7 +365,7 @@ local register_projectile_entity = function(name, entity_reg)
 			if self._collision_count >= 10 then
 				self.object:remove()
 				if self._shooter and self._shooter:is_player() then
-					minetest.add_item(pos, self._projectile_stack)
+					core.add_item(pos, self._projectile_stack)
 				end
 			end
 		end

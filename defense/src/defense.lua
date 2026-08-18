@@ -48,13 +48,13 @@ end
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		register_api()
 
 		register_nodes_damage_defense()
 
-		minetest.register_on_leaveplayer(function(player, timed_out)
+		core.register_on_leaveplayer(function(player, timed_out)
 			player_defense[player:get_player_name()] = nil
 		end)
 

@@ -1,10 +1,10 @@
-local e = minetest.formspec_escape
+local e = core.formspec_escape
 
 
---- @class minetest.FormSpec
+--- @class core.FormSpec
 local FormSpec = {}
 
-minetest.formspec = FormSpec
+core.formspec = FormSpec
 
 
 --- @param bool boolean|string
@@ -618,7 +618,7 @@ end
 ---   * if you want a listelement to start with "#" write "##".
 --- * Index to be selected within textlist
 --- * `true`/`false`: draw transparent background
---- * See also `minetest.explode_textlist_event`
+--- * See also `core.explode_textlist_event`
 --- (main menu: `core.explode_textlist_event`).
 ---
 --- @param list_elements table
@@ -790,7 +790,7 @@ end
 --- * `orientation`: `vertical`/`horizontal`. Default horizontal.
 --- * Fieldname data is transferred to Lua
 --- * Value of this trackbar is set to (`0`-`1000`) by default
---- * See also `minetest.explode_scrollbar_event`
+--- * See also `core.explode_scrollbar_event`
 --- (main menu: `core.explode_scrollbar_event`).
 ---
 --- @return string
@@ -832,7 +832,7 @@ end
 --- * `name`: fieldname sent to server on row select or double-click
 --- * `cell 1`...`cell n`: cell contents given in row-major order
 --- * `selected idx`: index of row to be selected within table (first row = `1`)
---- * See also `minetest.explode_table_event`
+--- * See also `core.explode_table_event`
 --- (main menu: `core.explode_table_event`).
 ---
 --- @return string
@@ -926,7 +926,7 @@ end
 ---     * pressed - Active when the button is pressed
 ---
 --- @param selectors  string|string[]
---- @param properties minetest.FormSpec.Style
+--- @param properties core.FormSpec.Style
 --- @return string
 function FormSpec.style(selectors, properties)
 	selectors = type(selectors) == 'table' and selectors or { selectors }
@@ -953,7 +953,7 @@ end
 ---     * pressed - Active when the button is pressed
 ---
 --- @param selectors  string|string[]
---- @param properties minetest.FormSpec.Style
+--- @param properties core.FormSpec.Style
 --- @return string
 function FormSpec.style_type(selectors, properties)
 	selectors = type(selectors) == 'table' and selectors or { selectors }

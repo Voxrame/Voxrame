@@ -4,7 +4,7 @@ local CONTROL_CHARGE = "RMB"
 --- @param tool_name string name of a stage of an archery item
 --- @return          string name of the stage 0 archery item
 local function to_original_state(tool_name)
-	local name = minetest.registered_items[tool_name]._original_state or tool_name
+	local name = core.registered_items[tool_name]._original_state or tool_name
 	return name
 end
 
@@ -123,9 +123,9 @@ local function projectile_shoot(shooter, projectile_stack, power, forced_directi
 
 	local projectile_reg = projectiles.get_projectiles()[projectile_item]
 
-	local projectile_entity = minetest.add_entity(projectile_pos, projectile_reg.entity_name)
+	local projectile_entity = core.add_entity(projectile_pos, projectile_reg.entity_name)
 	if not projectile_entity then
-		minetest.get_mod_logger().error('Can\'t add projectile entity "%s" into world.')
+		core.get_mod_logger().error('Can\'t add projectile entity "%s" into world.')
 
 		return false
 	end

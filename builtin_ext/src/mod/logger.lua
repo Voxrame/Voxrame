@@ -1,4 +1,4 @@
-local game = minetest.get_game_info().title
+local game = core.get_game_info().title
 
 
 --- @type table<string, helpers.Logger>
@@ -15,7 +15,7 @@ local Logger = {
 	prefix = "[" .. game .. "] ",
 	__index = function(self, level)
 		return function(message, ...)
-			minetest.log(level, self.prefix .. string.format(message, ...))
+			core.log(level, self.prefix .. string.format(message, ...))
 		end
 	end
 }
@@ -37,7 +37,7 @@ return {
 	--- @param mod_name string?
 	--- @return helpers.Logger
 	get_mod_logger = function(mod_name)
-		mod_name = mod_name or minetest.get_current_modname()
+		mod_name = mod_name or core.get_current_modname()
 
 		if mod_loggers[mod_name] then
 			return mod_loggers[mod_name]

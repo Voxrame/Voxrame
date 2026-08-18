@@ -80,8 +80,8 @@ end
 --- radius - the radius from the object to the player
 --- angle - the angle of displacement from the player along the circle in radians
 --- For understanding:
----    Z-axis, in minetest, this is the X-axis on a trigonometric circle
----    X-axis, in minetest, this is the Y-axis on a trigonometric circle
+---    Z-axis, in luanti, this is the X-axis on a trigonometric circle
+---    X-axis, in luanti, this is the Y-axis on a trigonometric circle
 ---    The angle is a mirror image of the player_look vector (where the player is looking)
 --- @param radius number                   calculated by theoreme of Pifagor
 --- @param angle any                       mirror reflection of the player_look angle in radian

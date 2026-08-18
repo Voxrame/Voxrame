@@ -17,7 +17,7 @@ function ForNode.mix_to(class)
 	--- @param pos  Position
 	class.on_instance(function(self, _, pos)
 		self.node_position = pos
-		self.node_meta     = minetest.get_meta(pos)
+		self.node_meta     = core.get_meta(pos)
 	end)
 end
 

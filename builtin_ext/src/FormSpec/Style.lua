@@ -1,5 +1,5 @@
 
---- @class minetest.FormSpec.Style
+--- @class core.FormSpec.Style
 local Style = { -- luacheck: ignore unused variable Style
 	--- set to true to allow the element to exceed formspec bounds.
 	--- Defaults to false in formspec_version version 3 or higher

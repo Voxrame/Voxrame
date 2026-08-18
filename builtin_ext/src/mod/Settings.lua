@@ -9,7 +9,7 @@ function ModSettings:new(mod_name) -- luacheck: ignore
 	--- @type Voxrame.mod.Settings
 	self = setmetatable({}, { __index = SettingsGroup })
 
-	return self:new(mod_name or minetest.get_current_modname())
+	return self:new(mod_name or core.get_current_modname())
 end
 
 

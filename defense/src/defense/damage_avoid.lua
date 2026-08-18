@@ -13,4 +13,4 @@ local handle_armor_damage_avoid = function(player)
 	end
 end
 
-minetest.register_on_punchplayer(handle_armor_damage_avoid)
+core.register_on_punchplayer(handle_armor_damage_avoid)

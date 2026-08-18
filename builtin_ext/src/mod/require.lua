@@ -44,8 +44,8 @@ return {
 	--- @param mod_path string
 	--- @return fun(name:string):any
 	get_mod_require = function(mod_name, mod_path)
-		mod_name = mod_name or minetest.get_current_modname()
-		mod_path = mod_path or minetest.get_modpath(mod_name)
+		mod_name = mod_name or core.get_current_modname()
+		mod_path = mod_path or core.get_modpath(mod_name)
 
 		if mod_requires[mod_name] then
 			return mod_requires[mod_name]

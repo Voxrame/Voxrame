@@ -63,7 +63,7 @@ Full API:
   ```
 
 ### `NameTag.Segment`
-You can use `minetest.colorize()` for parts of your value for segments.  
+You can use `core.colorize()` for parts of your value for segments.  
 Also yuu can use callback function for calculate your value. yuu can use callback function for calculate your value.
 - Set new text for the segment (*Note: no update of displaying):
   ```

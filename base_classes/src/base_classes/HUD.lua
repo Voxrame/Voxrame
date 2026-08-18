@@ -89,7 +89,7 @@ end
 --- @generic GenericHUD: base_classes.HUD
 --- @return GenericHUD
 function HUD:register()
-	minetest.register_on_leaveplayer(function(player, timed_out)
+	core.register_on_leaveplayer(function(player, timed_out)
 		self.hud[player:get_player_name()] = nil
 	end)
 

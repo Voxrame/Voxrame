@@ -7,13 +7,13 @@ local hypot = math.hypot
 --- @param player Player
 --- @param stack  ItemStack|ItemStackString
 --- @return boolean `true` if the item is put into inventory, and `false` if the item is dropped to the world.
-function minetest.give_or_drop(player, stack)
+function core.give_or_drop(player, stack)
 	local inv = player:get_inventory()
 	if inv:room_for_item("main", stack) then
 		inv:add_item("main", stack)
 		return true
 	else
-		minetest.item_drop(stack, player, player:get_pos())
+		core.item_drop(stack, player, player:get_pos())
 		return false
 	end
 end
@@ -54,7 +54,7 @@ function drop_items_to_world(lootnode_pos, player_pos, player_look, items, scena
 	for _, loot in ipairs(items) do
 		if loot then
 			--- @type Entity
-			local item = minetest.add_item(lootnode_pos, loot)
+			local item = core.add_item(lootnode_pos, loot)
 			if item then
 				drop_direction.x, drop_direction.z = math_point_on_circle(radius*coefficient_radius(), angle)
 				item:set_velocity(drop_direction)
