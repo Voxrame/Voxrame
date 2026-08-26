@@ -17,7 +17,7 @@ local Form = {
 	--- @type table<string,table>
 	will_mixed = {},
 
-	--- @type base_classes.Form.Mixin[]|table<string,base_classes.Form.Mixin>
+	--- @type table<string,base_classes.Form.Mixin>
 	mixins = {
 		personal      = Mixin.Personal,
 		for_node      = Mixin.ForNode,

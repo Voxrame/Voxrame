@@ -122,16 +122,16 @@ function BaseMeta:set_typified(field_type, key, value)
 	if field_type == FieldType.BOOLEAN then
 		self.meta:set_int(key, core.is_yes(value) and 1 or 0)
 	elseif field_type == FieldType.INTEGER then
-		--- @diagnostic disable-next-line: param-type-not-match -- TODO: consider to use `tonumber(value) or 0` instead
+		--- @diagnostic disable-next-line: param-type-mismatch -- TODO: consider to use `tonumber(value) or 0` instead
 		self.meta:set_int(key, tonumber(value))
 	elseif field_type == FieldType.STRING then
-		--- @diagnostic disable-next-line: param-type-not-match -- TODO: consider to use `tostring_or_nil(value) or ''`
+		--- @diagnostic disable-next-line: param-type-mismatch -- TODO: consider to use `tostring_or_nil(value) or ''`
 		self.meta:set_string(key, tostring_or_nil(value))
 	elseif field_type == FieldType.TABLE then
 		if type(value) ~= 'table' then
 			errorlf('Type mismatch for meta-field `%s`: `table` expected, got `%s`', 3, key, type(value))
 		end
-		--- @diagnostic disable-next-line: param-type-not-match -- we checked the type above and that not table.is_empty
+		--- @diagnostic disable-next-line: param-type-mismatch -- we checked the type above and that not table.is_empty
 		self.meta:set_string(key, table_is_empty(value) and '[]' or core.write_json(value))
 	else
 		errorf('Something went wrong...')

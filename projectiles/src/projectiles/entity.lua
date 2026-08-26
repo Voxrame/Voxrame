@@ -3,7 +3,7 @@ local math_pi, math_arctan, math_sqrt
 
 --- @alias projectiles.Entity.RotationType "pointed"|"rolling"
 
---- @class projectiles.Entity.LuaEntity
+--- @class projectiles.Entity.LuaEntity: LuaEntity
 --- @field _collision_count      integer
 --- @field _life_timer           number
 --- @field _projectile_stack     ItemStack

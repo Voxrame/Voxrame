@@ -18,6 +18,7 @@ local Event = {
 --- @param child_class GenericEvent?
 --- @return GenericEvent
 function Event:extended(child_class)
+	--- @cast child_class table?
 	self = setmetatable(child_class or {}, { __index = self })
 
 	self.Type        = self.Type or {}

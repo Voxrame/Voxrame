@@ -245,6 +245,7 @@ end
 function table.equals(table1, table2)
 	for key, value in pairs(table1) do
 		if type(value) == "table" then
+			--- @diagnostic disable-next-line: invert-if
 			if not table2[key] or type(table2[key]) ~= "table" then
 				return false
 			end
@@ -303,8 +304,8 @@ end
 --- Non-recurcive.
 ---
 --- @generic T: table
---- @param table     table|T                        A table to walk through.
---- @param callback  fun(value:any,key:any):boolean Function for apply to each value.
+--- @param table     table|T                A table to walk through.
+--- @param callback  fun(value:any,key:any) Function for apply to each value.
 function table.walk(table, callback)
 	for key, value in pairs(table) do
 		callback(value, key)

@@ -10,9 +10,13 @@ function Storage.get_state_of(object)
 		return {}
 	end
 
-	return object:is_player()
-		and core.deserialize(object:get_meta():get("object_state") or "return {}")
-		or  object:get_luaentity().object_state or {} --- @diagnostic disable-line: undefined-field
+	if object:is_player() then
+		--- @cast object Player
+		return core.deserialize(object:get_meta():get("object_state") or "return {}") --- @as table
+	else
+		--- @cast object Entity
+		return object:get_luaentity().object_state or {} --- @diagnostic disable-line: undefined-field
+	end
 end
 
 --- Obtains `ObjectState` from meta or object properties depending on whether `object` is a player or not
@@ -29,9 +33,11 @@ function Storage.set_state_of(object, state_table)
 	local state_string = core.serialize(state_table)
 
 	if object:is_player() then
+		--- @cast object Player
 		local meta = object:get_meta()
 		meta:set_string("object_state", state_string)
 	else
+		--- @cast object Entity
 		local entity = object:get_luaentity()
 		if not entity then
 			return false

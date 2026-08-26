@@ -87,12 +87,14 @@ function WithTabs.mix_to(class, tabs_numbers)
 	class.tabs        = class.tabs or {}
 	class.current_tab = table.is_empty(class.tabs) and 0 or 1
 
-	--- @param self base_classes.Form.Base|base_classes.Form.Mixin.WithTabs
+	--- @generic FormWithTabs: base_classes.Form.Mixin.WithTabs
+	--- @param self FormWithTabs
 	class.on_instance(function(self, _, _)
 		self.current_tab = 1
 		self.tabs = table.copy(self.tabs or class.tabs)
 	end)
-	--- @param self   base_classes.Form.Base|base_classes.Form.Mixin.WithTabs
+	--- @generic FormWithTabs: base_classes.Form.Mixin.WithTabs
+	--- @param self   FormWithTabs
 	--- @param _      Player
 	--- @param fields table|{current_tab:number}
 	class.on_handle(function(self, _, fields)

@@ -36,20 +36,13 @@ function drop_items_to_world(lootnode_pos, player_pos, player_look, items, scena
 		y = (player_pos.y - lootnode_pos.y + 4.5),
 		z = (player_pos.z - lootnode_pos.z),
 	}
-	local radius
-	if scenario == nil or scenario == 'default' then
-		radius = hypot(drop_direction.x, drop_direction.z)
-	end
-	if scenario == 'random_distance' then
-		radius = 2.5
-	end
+	local radius = scenario == 'random_distance' and 2.5 or hypot(drop_direction.x, drop_direction.z)
 	local function coefficient_radius()
-		if scenario == nil or scenario == 'default' then
-			return 0.8
-		end
 		if scenario == 'random_distance' then
 			return 0.1*math_random(6,10)
 		end
+
+		return 0.8 -- scenario == nil or scenario == 'default'
 	end
 	for _, loot in ipairs(items) do
 		if loot then
