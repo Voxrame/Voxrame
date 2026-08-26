@@ -74,9 +74,9 @@ local Style = { -- luacheck: ignore unused variable Style
     font = 'normal',
 	--- Sets font size. Default is user-set. Can have multiple values:
 	---  * `<number>`: Sets absolute font size to `number`.
-	---  * `+<number>`/`-<number>`: Offsets default font size by `number` points.
-	---  * `*<number>`: Multiplies default font size by `number`, similar to CSS `em`.
-	--- @type number?
+	---  * `"+<number>"`/`"-<number>"`: Offsets default font size by `number` points.
+	---  * `"*<number>"`: Multiplies default font size by `number`, similar to CSS `em`.
+	--- @type number|string?
     font_size = nil,
 	--- draw border. Set to false to hide the bevelled button pane. Default true.
 	--- @type boolean?
