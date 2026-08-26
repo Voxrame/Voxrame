@@ -58,9 +58,11 @@ function Resolver.by_reason(reason)
 		local item = player_or_mob:get_wielded_item()
 
 		if player_or_mob:is_player() then                                -- `damage.Type` of:
+			--- @cast player_or_mob Player
 			return Resolver.by_definition(item:get_definition())         -- Player wielded item
 				or Resolver.by_definition(core.registered_items[""]) -- Player hand
 		else
+			--- @cast player_or_mob Entity
 			return item:get_name() ~= ""                             -- `damage.Type` of:
 				and Resolver.by_definition(item:get_definition())    -- Entity wielded item
 				--- @diagnostic disable-next-line: undefined-field `damage_type` field must be set for entities of mobs

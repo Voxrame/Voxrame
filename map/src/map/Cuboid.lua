@@ -18,6 +18,7 @@ local Cuboid = {
 --- @param child_class? GenericCuboid
 --- @return GenericCuboid
 function Cuboid:extended(child_class)
+	--- @cast child_class table?
 	return setmetatable(child_class or {}, { __index = self })
 end
 

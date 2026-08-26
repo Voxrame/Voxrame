@@ -118,6 +118,7 @@ local function projectile_shoot(shooter, projectile_stack, power, forced_directi
 		projectile_pos = forced_start_position or vector.new(shooter_pos.x, shooter_pos.y, shooter_pos.z)
 	end
 	--- @cast look_dir vector
+	--- @cast projectile_pos vector
 
 	local projectile_item = projectile_stack:get_name()
 
@@ -129,11 +130,14 @@ local function projectile_shoot(shooter, projectile_stack, power, forced_directi
 
 		return false
 	end
+	--- @cast projectile_entity Entity
 
 	local initial_vel = vector.multiply(look_dir, projectile_reg.entity_reg.max_speed * power)
 	local rotation_formula = projectile_reg.entity_reg.rotation_formula
 	projectile_entity:set_rotation(projectiles.get_rotation_pattern(rotation_formula, initial_vel))
-	projectile_entity:get_luaentity()._rotation_formula = rotation_formula
+	--- @type projectiles.Entity.LuaEntity
+	local lua_entity = projectile_entity:get_luaentity()
+	lua_entity._rotation_formula = rotation_formula
 	projectile_entity:add_velocity(initial_vel)
 	projectile_entity:set_acceleration(vector.new(0, -GRAVITY, 0))
 	--- @type projectiles.Entity.LuaEntity

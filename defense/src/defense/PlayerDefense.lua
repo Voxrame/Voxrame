@@ -15,17 +15,17 @@ local PlayerDefense = {
 
 	--- @private
 	defense = {
-		--- @type number in percents from 0 to 100
+		--- @type number # in percents from 0 to 100
 		fleshy = nil,  --- @diagnostic disable-line: assign-type-mismatch
-		--- @type number in percents from 0 to 100
+		--- @type number # in percents from 0 to 100
 		fire   = nil,  --- @diagnostic disable-line: assign-type-mismatch
-		--- @type number in percents from 0 to 100
+		--- @type number # in percents from 0 to 100
 		soul   = nil,  --- @diagnostic disable-line: assign-type-mismatch
-		--- @type number in percents from 0 to 100
+		--- @type number # in percents from 0 to 100
 		poison = nil,  --- @diagnostic disable-line: assign-type-mismatch
 	},
 
-	--- @type number in percents from 0 to 100
+	--- @type number # in percents from 0 to 100
 	damage_avoid_chance = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 

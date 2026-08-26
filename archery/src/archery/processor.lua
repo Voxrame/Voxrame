@@ -199,7 +199,7 @@ controls.on_release(function(player, key, hold_time)
 		return
 	end
 
-	local stack = player:get_wielded_item()
+	local stack = player:get_wielded_item() --[[@as ItemStack]]
 	local stack_def = stack:get_definition()
 
 	if not stack_def.groups or not stack_def.groups.throwable then
@@ -217,7 +217,7 @@ controls.on_release(function(player, key, hold_time)
 	local wield_index = player:get_wield_index()
 
 	local power = api.calculate_power(stack, hold_time)
-	local new_stack = ItemStack(table.copy(stack:to_table() or {}))
+	local new_stack = ItemStack(table.copy(stack:to_table() or {})--[[@as ItemStackTable]])
 
 	local uses = api.reg_from_archery_item(new_stack:get_name()).definition.uses
 	if uses then

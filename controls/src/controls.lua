@@ -1,10 +1,10 @@
 local api = require("controls.api")
 
 
-controls = {}
+controls = api
 
 local function register_api()
-	_G.controls = api
+	controls = api
 end
 
 

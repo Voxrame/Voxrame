@@ -56,10 +56,10 @@ local function find_room_walls_positions(rc, data, area)
 end
 
 --- @param rc       Position room center
---- @param wx_minus number
---- @param wx_plus  number
---- @param wz_minus number
---- @param wz_plus  number
+--- @param wx_minus integer
+--- @param wx_plus  integer
+--- @param wz_minus integer
+--- @param wz_plus  integer
 --- @param data     table
 --- @param area     VoxelArea
 --- @return number|nil

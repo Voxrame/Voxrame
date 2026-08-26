@@ -92,9 +92,10 @@ local function register_nodes(device_name, craft_method, nodes_definitions, form
 		active   = nodes_definitions.active.node_name:replace('^:', ''),
 	}
 	DeviceClass    = DeviceClass    or create_generic_device(device_name, form, nodes_names, size_of)
+	--- @cast DeviceClass fuel_device.Device
 	ProcessorClass = ProcessorClass or create_generic_processor(DeviceClass, craft_method)
+	--- @cast ProcessorClass fuel_device.Processor
 
-	--- @diagnostic disable-next-line: generic-constraint-mismatch тупит плагин?
 	local common              = definition.common.get(DeviceClass)
 	local inventory_callbacks = definition.inventory_callbacks.get(device_name, ProcessorClass)
 
