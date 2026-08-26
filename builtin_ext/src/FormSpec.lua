@@ -28,7 +28,7 @@ local function key_value_list(list, separator)
 
 	local list_strings = {}
 	for key, value in pairs(list) do
-		table.insert(list_strings, key..'='..value)
+		table.insert(list_strings, key..'='..tostring(value))
 	end
 
 	return table.concat(list_strings, separator)
@@ -929,7 +929,7 @@ end
 --- @param properties core.FormSpec.Style
 --- @return string
 function FormSpec.style(selectors, properties)
-	selectors = type(selectors) == 'table' and selectors or { selectors }
+	selectors = type(selectors) == 'table' and selectors or { selectors } --- @as string[]
 
 	return 'style['.. table.concat(selectors,',') ..';'.. key_value_list(properties) ..']'
 end
@@ -956,7 +956,7 @@ end
 --- @param properties core.FormSpec.Style
 --- @return string
 function FormSpec.style_type(selectors, properties)
-	selectors = type(selectors) == 'table' and selectors or { selectors }
+	selectors = type(selectors) == 'table' and selectors or { selectors } --- @as string[]
 
 	return 'style_type['.. table.concat(selectors,',') ..';'.. key_value_list(properties) ..']'
 end
