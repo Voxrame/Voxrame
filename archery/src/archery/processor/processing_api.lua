@@ -141,7 +141,7 @@ local function projectile_shoot(shooter, projectile_stack, power, forced_directi
 	projectile_entity:add_velocity(initial_vel)
 	projectile_entity:set_acceleration(vector.new(0, -GRAVITY, 0))
 	--- @type projectiles.Entity.LuaEntity
-	local lua_entity = projectile_entity:get_luaentity()
+	lua_entity = projectile_entity:get_luaentity()
 	lua_entity._shooter              = shooter
 	lua_entity._projectile_stack     = projectile_stack
 	lua_entity._remove_on_object_hit = projectile_reg.entity_reg.remove_on_object_hit
