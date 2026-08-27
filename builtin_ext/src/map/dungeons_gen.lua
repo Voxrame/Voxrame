@@ -40,7 +40,7 @@ local MAX_NODES_TO_CEIL = 8 + 16 + 2
 --- @field ceiling RoomWall
 
 
----@param rc   Position room center
+---@param rc   MapPosition room center
 ---@param data table
 ---@param area VoxelArea
 local function find_room_walls_positions(rc, data, area)
@@ -55,7 +55,7 @@ local function find_room_walls_positions(rc, data, area)
 	return wx_plus, wx_minus, wz_plus, wz_minus
 end
 
---- @param rc       Position room center
+--- @param rc       MapPosition room center
 --- @param wx_minus integer
 --- @param wx_plus  integer
 --- @param wz_minus integer
@@ -78,7 +78,7 @@ local function find_room_ceiling_y(rc, wx_minus, wx_plus, wz_minus, wz_plus, dat
 	return nil
 end
 
---- @param room_center Position
+--- @param room_center MapPosition
 --- @param data table
 --- @param area VoxelArea
 --- @return RoomWalls|RoomWall[]|table
@@ -110,7 +110,7 @@ end
 
 --- @param data table
 --- @param area VoxelArea
---- @param rooms_centers Position[]
+--- @param rooms_centers MapPosition[]
 --- @return RoomWalls[]
 local function detect_rooms_walls(data, area, rooms_centers)
 	local rooms_walls = {}
@@ -122,7 +122,7 @@ local function detect_rooms_walls(data, area, rooms_centers)
 end
 
 -- luacheck: no max line length
---- @param callback fun(minp:Position, maxp:Position, data:table, param2_data:table, area:VoxelArea, rooms_centers:Position[], rooms_walls:RoomWalls[])
+--- @param callback fun(minp:MapPosition, maxp:MapPosition, data:table, param2_data:table, area:VoxelArea, rooms_centers:MapPosition[], rooms_walls:RoomWalls[])
 core.register_on_dungeon_generated = function(callback)
 	table_insert(on_dungeon_generated_handlers, callback)
 

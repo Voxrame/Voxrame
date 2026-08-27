@@ -1,6 +1,6 @@
-local ipairs, pi, math_random, math_point_on_circle
-    = ipairs, math.pi, math.random, math.point_on_circle
-local hypot = math.hypot
+local ipairs, pi,      math_random, math_point_on_circle, math_hypot
+    = ipairs, math.pi, math.random, math.point_on_circle, math.hypot
+
 
 --- Places an item in the inventory of the specified player
 ---   or drops it on the ground nearby, if there is not enough space in the inventory.
@@ -13,7 +13,7 @@ function core.give_or_drop(player, stack)
 		inv:add_item("main", stack)
 		return true
 	else
-		core.item_drop(stack, player, player:get_pos())
+		core.item_drop(ItemStack(stack), player, player:get_pos())
 		return false
 	end
 end
@@ -27,7 +27,7 @@ end
 --- 'default' or nil - drop loot on a circle with calc radius node<->player,
 --- 'random_distance' - drop loot on a circle with fixed random range radius
 function drop_items_to_world(lootnode_pos, player_pos, player_look, items, scenario)
-	local radian_offset = 0        -- initial offset
+	local radian_offset = 0.0      -- initial offset
 	local angle = pi - player_look -- mirrired angle of player_look
 	local sign_offset = 1          -- displacement sign, for alternating left-right drops
 	local coefficient_offset = 0.3 -- coefficient of angle offset
@@ -36,7 +36,7 @@ function drop_items_to_world(lootnode_pos, player_pos, player_look, items, scena
 		y = (player_pos.y - lootnode_pos.y + 4.5),
 		z = (player_pos.z - lootnode_pos.z),
 	}
-	local radius = scenario == 'random_distance' and 2.5 or hypot(drop_direction.x, drop_direction.z)
+	local radius = scenario == 'random_distance' and 2.5 or math_hypot(drop_direction.x, drop_direction.z)
 	local function coefficient_radius()
 		if scenario == 'random_distance' then
 			return 0.1*math_random(6,10)
@@ -46,7 +46,7 @@ function drop_items_to_world(lootnode_pos, player_pos, player_look, items, scena
 	end
 	for _, loot in ipairs(items) do
 		if loot then
-			--- @type Entity
+			--- @type Entity?
 			local item = core.add_item(lootnode_pos, loot)
 			if item then
 				drop_direction.x, drop_direction.z = math_point_on_circle(radius*coefficient_radius(), angle)

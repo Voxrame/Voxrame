@@ -112,6 +112,8 @@ end
 
 --- @param grid     ItemStack[][]|string[][]
 --- @param callback fun(item:ItemStack|string,row:number,col:number):boolean|nil  return `true` for stop traverse
+--- @overload fun(grid:string[][], callback:fun(item:string,row:number,col:number):boolean|nil):void
+--- @overload fun(grid:ItemStack[][], callback:fun(item:ItemStack,row:number,col:number):boolean|nil):void
 local function foreach_item_in_grid(grid, callback)
 	--- @type boolean|nil
 	local stop_propagation = false
@@ -351,7 +353,7 @@ function core.get_craft_result(input)
 				end
 
 				output.item = ItemStack(recipe.output)
-				--- @diagnostic disable-next-line: undefined-field # native luabti `RecipeInput` does not have `type`
+				--- @diagnostic disable-next-line: undefined-field, invert-if # native luanti `RecipeInput` does not have `type`
 				if input.type == core.CraftType.COOKING then
 					output.time = recipe.time
 				end

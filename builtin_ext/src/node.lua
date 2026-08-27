@@ -19,15 +19,15 @@ end
 
 --- Finds nodes near position.
 ---
---- @param position         Position     Center position to search around.
+--- @param position         MapPosition  Center position to search around.
 --- @param radius           number       Search radius.
 --- @param node_names       table|string Nodes to search. (e.g. `{"ignore", "group:tree"}` or `"default:dirt"`)
 --- @param search_in_center boolean      Optional. If true `pos` is also checked for the nodes. (default: `false`).
 ---
 --- @return table<Position,NodeTable> Found nodes.
 function core.find_nodes_near(position, radius, node_names, search_in_center)
-	local pos1 = v(position):subtract(radius)
-	local pos2 = v(position):add(radius)
+	local pos1 = v(position):subtract(radius) --[[@as MapPosition]]
+	local pos2 = v(position):add(radius)      --[[@as MapPosition]]
 
 	local all_found_at = core.find_nodes_in_area(pos1, pos2, node_names)
 
@@ -65,7 +65,7 @@ end
 ---  - `nil, nil` - for `only_first`
 ---  - `{}, nil`  - for not `only_first`
 ---
---- @param position          Position     Center position to search around.
+--- @param position          MapPosition  Center position to search around.
 --- @param radius            number       Search radius.
 --- @param node_names        table|string Nodes to search. (e.g. `{"ignore", "group:tree"}` or `"default:dirt"`)
 --- @param except_node_names table|string Nodes to exclude. (e.g. `{"ignore", "group:tree"}` or `"default:dirt"`)
@@ -101,7 +101,7 @@ end
 
 --- Finds first matching node near position (with exceptions).
 ---
---- @param position          Position     Center position to search around.
+--- @param position          MapPosition  Center position to search around.
 --- @param radius            number       Search radius.
 --- @param node_names        table|string Nodes to search. (e.g. `{"ignore", "group:tree"}` or `"default:dirt"`)
 --- @param except_node_names table|string Nodes to exclude. (e.g. `{"ignore", "group:tree"}` or `"default:dirt"`)

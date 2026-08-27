@@ -52,20 +52,23 @@ local flame_node = function(pos, in_nazgul_area)
 		node_desc.groups = {}
 	end
 
-	if node_desc.groups.forbidden == nil then
-		if node_desc.groups.flammable or math.random(1, 100) <= 30 then
-			if n == "air" or not in_nazgul_area then
-				core.set_node(pos, { name = "fire:basic_flame" })
-			end
-		else
-			if not in_nazgul_area then
-				-- one cannot simply remove a node without exploding it first
-				if node_desc.on_blast then
-					node_desc.on_blast(pos)
-				end
-				core.remove_node(pos)
-			end
+	if node_desc.groups.forbidden ~= nil then
+		return
+	end
+
+	if node_desc.groups.flammable or math.random(1, 100) <= 30 then
+		if n == "air" or not in_nazgul_area then
+			core.set_node(pos, { name = "fire:basic_flame" })
 		end
+	else
+		if in_nazgul_area then
+			return
+		end
+		-- one cannot simply remove a node without exploding it first
+		if node_desc.on_blast then
+			node_desc.on_blast(pos)
+		end
+		core.remove_node(pos)
 	end
 end
 
@@ -79,7 +82,7 @@ local explode_objects = function(pos, radius, explosive_object, damage_groups)
 		local distance_vector = vector.subtract(obj_pos, pos)
 		local distance_length = vector.length(distance_vector)
 		local dir_vector = vector.normalize(distance_vector)
-		local explosion_power
+		local explosion_power = 0.0
 
 		if distance_length == 0 then
 			explosion_power = radius
@@ -102,16 +105,18 @@ end
 --- @param pos            Position   position of the node
 --- @param in_nazgul_area boolean    flag that the node is in an area protected from explosions
 local explode_node = function(pos, in_nazgul_area)
+	if in_nazgul_area then
+		return
+	end
+
 	local node = core.get_node(pos)
 	local node_def = core.registered_nodes[node.name]
 
-	if not in_nazgul_area then
-		if node_def then
-			if node_def.on_blast then
-				node_def.on_blast(pos)
-			else
-				core.punch_node(pos)
-			end
+	if node_def then
+		if node_def.on_blast then
+			node_def.on_blast(pos)
+		else
+			core.punch_node(pos)
 		end
 	end
 end

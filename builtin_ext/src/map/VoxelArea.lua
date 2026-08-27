@@ -179,7 +179,7 @@ function VoxelArea:fill_with(node_id, from, to, chance, param2)
 end
 
 --- Checks if the node at the specified position matches the given node ID.
---- @param position       vector|nil if nil, returns false.
+--- @param position       MapVector|nil if nil, returns false.
 --- @param node_id        integer    node ID to check against.
 --- @param check_contain? boolean    if true, checks if position is inside area, default is false.
 --- @return boolean
@@ -192,9 +192,9 @@ function VoxelArea:is(position, node_id, check_contain)
 end
 
 --- Checks if the node at the specified position does not match the given node ID.
---- @param position       vector|nil if nil, returns false.
---- @param node_id        integer    node ID to check against.
---- @param check_contain? boolean    if true, checks if position is inside area, default is false.
+--- @param position       MapVector|nil if nil, returns false.
+--- @param node_id        integer       node ID to check against.
+--- @param check_contain? boolean       if true, checks if position is inside area, default is false.
 --- @return boolean
 function VoxelArea:is_not(position, node_id, check_contain)
 	check_contain = check_contain or false
@@ -210,9 +210,9 @@ end
 --- Cubaoid [from, to] is inclusive and will be sorted automatically.
 ---
 --- @param node_id   integer|integer[] if is array, random nodes will be placed.
---- @param from?     Position          position from which to start placing pile.
---- @param to?       Position          position to which to place pile.
---- @param peak?     Position          peak position of the pile.
+--- @param from?     MapPosition       position from which to start placing pile.
+--- @param to?       MapPosition       position to which to place pile.
+--- @param peak?     MapPosition       peak position of the pile.
 --- @param fillness? number            fillness of the pile, 0..1 (default is 0.75).
 --- @param param2?   integer|integer[] if is array, random param2 will be set.
 ---
@@ -221,13 +221,13 @@ function VoxelArea:place_pile(node_id, from, to, peak, fillness, param2)
 	from     = from     or self.MinEdge
 	to       = to       or self.MaxEdge
 	fillness = fillness or 0.75
-	from, to = vector_sort(from, to)
+	from, to = vector_sort(from, to) --[[@as MapPosition, MapPosition]]
 
 	peak = peak or v(
 		math_floor((from.x + to.x) / 2),
 		to.y,
 		math_floor((from.z + to.z) / 2)
-	)
+	) --[[@as MapPosition]]
 	local height = to.y - from.y + 1
 	-- Deltas from peak to sides of base of pile (pyramid)
 	local peak_from_dx = peak.x - from.x
