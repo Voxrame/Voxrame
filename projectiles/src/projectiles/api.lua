@@ -82,7 +82,8 @@ local explode_objects = function(pos, radius, explosive_object, damage_groups)
 		local distance_vector = vector.subtract(obj_pos, pos)
 		local distance_length = vector.length(distance_vector)
 		local dir_vector = vector.normalize(distance_vector)
-		local explosion_power = 0.0
+		--- @type number
+		local explosion_power
 
 		if distance_length == 0 then
 			explosion_power = radius
