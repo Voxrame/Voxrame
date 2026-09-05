@@ -1,5 +1,5 @@
-local debug_getinfo
-    = debug.getinfo
+local debug_getinfo, term
+    = debug.getinfo, Voxrame.terminal
 
 
 local PROJECT_LOCATION = ''

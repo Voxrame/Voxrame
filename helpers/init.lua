@@ -2,12 +2,13 @@ local mod_path    = core.get_modpath(core.get_current_modname())
 local old_require = require
 require           = function(name) return dofile(mod_path .. '/src/' .. name:gsub('%.', '/') .. '.lua') end
 
-Voxrame = Voxrame or {}
---- @module 'Voxrame.helpers'
-Voxrame.helpers = 'loaded'
+
+Voxrame = rawget(_G, 'Voxrame') or {}
+
+Voxrame.helpers  = 'loaded'
+Voxrame.terminal = require('terminal')
 
 require('types')
-require('term')
 require('lua_ext.global')
 require('lua_ext.table')
 require('lua_ext.string')

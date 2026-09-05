@@ -2,7 +2,8 @@ local math_floor, type, tonumber, string_format, print
     = math.floor, type, tonumber, string.format, print
 
 
-term = {}
+--- @class Voxrame.terminal
+local term = {}
 
 --- ANSI escape codes of terminal styles.
 term.style = {
@@ -234,3 +235,6 @@ term.default = {
 	link_style = term.style.underline_dotted .. term.color('under', '#fc009b'),
 	link_reset = term.style.reset_underline_color .. term.style.reset_underline,
 }
+
+
+return term
