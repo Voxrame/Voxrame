@@ -105,7 +105,10 @@ local function register_nodes(device_name, craft_method, nodes_definitions, form
 
 	register_node(nodes_definitions.active, common, inventory_callbacks, {
 		description = device_name,
-		on_timer    = ProcessorClass.get_on_timer_function(ProcessorClass),
+		on_timer    = ProcessorClass:get_on_timer_function(),
+		on_destruct = function(pos)
+			ProcessorClass:on_node_destruct(pos)
+		end,
 	})
 
 	-- Form or node meta inventories sizes can be changed in code in future.

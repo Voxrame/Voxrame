@@ -126,7 +126,7 @@ function Processor.get_on_timer_function(self)
 	end
 end
 
---- @param position Position
+--- @param position MapPosition
 function Processor:start_or_stop(position)
 	local device = self.DeviceClass:new(position)
 	local meta   = device:get_meta()
@@ -144,7 +144,7 @@ function Processor:start_or_stop(position)
 end
 
 --- @static
---- @param position Position
+--- @param position MapPosition
 function Processor:act(position)
 	local device = self.DeviceClass:new(position)
 	local meta   = device:get_meta()
@@ -167,7 +167,7 @@ function Processor:act(position)
 end
 
 --- @static
---- @param position Position
+--- @param position MapPosition
 --- @param elapsed  number
 function Processor:on_timer(position, elapsed)
 	for i = 1, math_floor(elapsed / self.DeviceClass.TIMER_TICK) do
@@ -175,6 +175,12 @@ function Processor:on_timer(position, elapsed)
 	end
 
 	core.get_node_timer(position):set(self.DeviceClass.TIMER_TICK, elapsed % self.DeviceClass.TIMER_TICK)
+end
+
+--- @static
+--- @param position MapPosition
+function Processor:on_node_destruct(position)
+	fuel_device.Sound.stop_at(position)
 end
 
 
