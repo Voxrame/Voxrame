@@ -5,8 +5,9 @@ require           = function(name) return dofile(mod_path .. '/src/' .. name:gsu
 
 Voxrame = rawget(_G, 'Voxrame') or {}
 
-Voxrame.helpers  = 'loaded'
-Voxrame.terminal = require('terminal')
+Voxrame.helpers   = 'loaded'
+Voxrame.terminal  = require('terminal')
+Voxrame.exception = require('exception')
 
 require('types')
 require('lua_ext.global')

@@ -71,6 +71,7 @@ return {
 		debug  = { fields = {
 			-- Voxrame/helpers:
 			"get_function_code", "get_passed_params", "get_file_code",
+			"get_stack_frames", "render_backtrace", "print_backtrace",
 			"measure", "measure_print"
 		} },
 

@@ -148,34 +148,77 @@ function debug.get_function_code(func)
 	return debug.get_file_code(name, func_info.linedefined, func_info.lastlinedefined) or ''
 end
 
---- @param depth? integer Call stack nesting level (default: `0`)
---- @return string
-local function backtrace(depth)
-	depth = depth or 0
-	depth = depth + 2
+--- One frame of the call stack.
+--- @class debuglib.StackFrame
+--- @field file  string  source file of the function (`=[C]` for functions written in C).
+--- @field line  integer current line in the file (`-1` for functions written in C).
+--- @field name  string? name of the function, if known.
+--- @field what  string  `Lua`, `C`, `main` or `tail`.
 
-	local i = 1
-	local trace = ''
-	while true do
-		local info = debug.getinfo(depth, 'Slnf')
+--- Returns frames of the call stack, from the innermost to the outermost.
+--- @param depth? integer Call stack nesting level to start from; `0` (default) - the caller of this function.
+--- @return debuglib.StackFrame[]
+function debug.get_stack_frames(depth)
+	local frames = {}
+
+	-- level 1 is this function itself
+	for level = 2 + (depth or 0), math.huge do
+		local info = debug_getinfo(level, 'Sln')
 		if not info then
 			break
 		end
 
-		trace = trace
-			.. term.stylize(('%4s   '):format(i), term.style.italic .. term.style.dim)
-			.. (info.what == 'C'
-				and term.stylize('@', term.style.bright_yellow) .. ' [C]'
-				or  get_file_line_term_string(info.source:replace('^@', ''), info.currentline)
-			)
-			.. term.stylize(': in ' .. (info.name or info.what), term.style.cyan)
-			.. '\n'
+		frames[#frames + 1] = {
+			file = info.source:replace('^@', ''),
+			line = info.currentline,
+			name = info.name,
+			what = info.what,
+		}
+	end
 
-		depth = depth + 1
-		i = i + 1
+	return frames
+end
+
+--- Renders frames of the call stack as a multi-line string (one line per frame).
+---
+--- By default the string is styled for a terminal. If your terminal supports links, every `@ <file>:<line>` will
+--- linked to open IDE, see `readme.md` to configure.
+--- Pass `plain = true` to get a string without any styles and links, e.g. to write to a log in production.
+---
+--- @param frames debuglib.StackFrame[] see `debug.get_stack_frames()`
+--- @param plain? boolean               render without styles & links; default: `false`
+--- @return string
+function debug.render_backtrace(frames, plain)
+	local trace = ''
+	for i, frame in ipairs(frames) do
+		if plain then
+			local location = frame.what == 'C'
+				and '@ [C]'
+				or  ('@ %s:%d'):format(frame.file:replace(PROJECT_LOCATION:reg_escape(), ''), frame.line)
+
+			trace = trace .. ('%4s   %s: in %s\n'):format(i, location, frame.name or frame.what)
+		else
+			trace = trace
+				.. term.stylize(('%4s   '):format(i), term.style.italic .. term.style.dim)
+				.. (frame.what == 'C'
+					and term.stylize('@', term.style.bright_yellow) .. ' [C]'
+					or  get_file_line_term_string(frame.file, frame.line)
+				)
+				.. term.stylize(': in ' .. (frame.name or frame.what), term.style.cyan)
+				.. '\n'
+		end
 	end
 
 	return trace
+end
+
+--- Prints frames of the call stack to the terminal (styled, with links). For a quick look while debugging.
+--- Shorten for `term.print(debug.render_backtrace(frames))`.
+--- For production (e.g. to write to a log) use `debug.render_backtrace(frames, true)`.
+---
+--- @param frames debuglib.StackFrame[] see `debug.get_stack_frames()`
+function debug.print_backtrace(frames)
+	term.print(debug.render_backtrace(frames))
 end
 
 --- Dumps all passed params, also show `@ <file>:<line>` where `pdt()` was called.
@@ -194,7 +237,7 @@ function print_dump(depth, with_trace, ...)
 
 	term.print(get_file_line_term_string(file_full, line))
 	if with_trace then
-		term.print(backtrace(2 + depth))
+		term.print(debug.render_backtrace(debug.get_stack_frames(2 + depth)))
 	end
 
 	local passed_params, max_param_length = debug.get_passed_params(debug.get_file_code(file_full, line))
@@ -244,7 +287,7 @@ function core.error_handler(message, depth)
 		term.print('  ' .. message, term.style.bright_red)
 		term.print('')
 		term.print('Stack trace:', term.style.bold .. term.style.bright_red)
-		term.print(backtrace(depth))
+		term.print(debug.render_backtrace(debug.get_stack_frames(depth)))
 		term.print(('+'):rep(80), term.style.green)
 
 		return 'Debug mode is `on`. See you terminal.'
@@ -253,11 +296,11 @@ function core.error_handler(message, depth)
 	end
 end
 
---- @type number[string]
+--- @type { [string]: number }
 local measure_average = {}
---- @type number[string]
+--- @type { [string]: number }
 local measure_count   = {}
---- @type number[string]
+--- @type { [string]: number }
 local measure_last    = {}
 
 --- Measures time and average time of `callback` function execution.  \
