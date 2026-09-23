@@ -306,11 +306,11 @@ local measure_last    = {}
 --- Measures time and average time of `callback` function execution.  \
 --- Prints result if `print_result` is `true`.
 ---
---- @param name          string  ununique name of mesure
---- @param callback      fun()   function to mesure time of
+--- @param name          string  ununique name of measure
+--- @param callback      fun()   function to measure time of
 --- @param print_result? boolean whether to print result
 ---
---- @return number, number, number, string?  # time, average time, count of mesures, print string if not `print_result`
+--- @return number, number, number, string?  # time, average time, count of measures, print string if not `print_result`
 function debug.measure(name, callback, print_result)
 	local start = os.clock()
 	if not measure_average[name] then
@@ -339,18 +339,18 @@ function debug.measure(name, callback, print_result)
 	return time, measure_average[name], measure_count[name], print_string
 end
 
---- Prints results of previous `debug.mesure()`
+--- Prints results of previous `debug.measure()`
 ---
---- @param name string ununique name of mesure
-function debug.mesure_print(name)
+--- @param name string ununique name of measure
+function debug.measure_print(name)
 	if not measure_average[name] then
-		print('Measure of [' .. name .. ']:  No mesure found')
+		print('Measure of [' .. name .. ']:  No measure found')
 
 		return
 	end
 
 	print(
-		('Measure of [%s]: Average time: %5.0f ms ; Last time: %5.0f ms ; Count of mesures: %5.0f')
+		('Measure of [%s]: Average time: %5.0f ms ; Last time: %5.0f ms ; Count of measures: %5.0f')
 			:format(name, measure_average[name], measure_last[name], measure_count[name])
 	)
 end
