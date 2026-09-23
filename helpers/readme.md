@@ -32,31 +32,29 @@
 
 ## Overview
 
-See [Detailed documentation](#detailed-documentation) above for the full description of every function, with examples.
-
 ### [String](https://voxrame.dev/utils/helpers#string)
 
 <table>
 <tr valign="top">
 <td>
 
-- [`string:lower()`](https://voxrame.dev/utils/helpers#string-lower)
-- [`string:upper()`](https://voxrame.dev/utils/helpers#string-upper)
-- [`string:is_one_of()`](https://voxrame.dev/utils/helpers#string-is_one_of-table)
-- [`string:first_to_upper()`](https://voxrame.dev/utils/helpers#string-first_to_upper)
-- [`string:title()`/`:to_headline()`](https://voxrame.dev/utils/helpers#string-title-to-headline)
-- [`string:starts_with()`](https://voxrame.dev/utils/helpers#string-starts_with-prefix)
-- [`string:ends_with()`](https://voxrame.dev/utils/helpers#string-ends_with-suffix)
+[`string:lower()`](https://voxrame.dev/utils/helpers#string-lower)  
+[`string:upper()`](https://voxrame.dev/utils/helpers#string-upper)  
+[`string:is_one_of()`](https://voxrame.dev/utils/helpers#string-is-one-of-table)  
+[`string:first_to_upper()`](https://voxrame.dev/utils/helpers#string-first-to-upper)  
+[`string:title()`/`:to_headline()`](https://voxrame.dev/utils/helpers#string-title-to-headline)  
+[`string:starts_with()`](https://voxrame.dev/utils/helpers#string-starts-with-prefix)  
+[`string:ends_with()`](https://voxrame.dev/utils/helpers#string-ends-with-suffix)  
 
 </td>
 <td>
 
-- [`string:contains()`](https://voxrame.dev/utils/helpers#string-contains-sub_string)
-- [`string:replace()`](https://voxrame.dev/utils/helpers#string-replace-pattern-replacement-n)
-- [`string:remove()`](https://voxrame.dev/utils/helpers#string-remove-pattern-n)
-- [`string:reg_escape()`](https://voxrame.dev/utils/helpers#string-reg_escape)
-- [`string:vxr_split()`](https://voxrame.dev/utils/helpers#string-vxr_split-delimiter-processor)
-- [`string.or_nil()`](https://voxrame.dev/utils/helpers#string-or_nil-value)
+[`string:contains()`](https://voxrame.dev/utils/helpers#string-contains-sub-string)  
+[`string:replace()`](https://voxrame.dev/utils/helpers#string-replace-pattern-replacement-n)  
+[`string:remove()`](https://voxrame.dev/utils/helpers#string-remove-pattern-n)  
+[`string:reg_escape()`](https://voxrame.dev/utils/helpers#string-reg-escape)  
+[`string:vxr_split()`](https://voxrame.dev/utils/helpers#string-vxr-split-delimiter-processor)  
+[`string.or_nil()`](https://voxrame.dev/utils/helpers#string-or-nil-value)  
 
 </td>
 </tr>
@@ -68,35 +66,35 @@ See [Detailed documentation](#detailed-documentation) above for the full descrip
 <tr valign="top">
 <td>
 
-- [`table.keys()`](https://voxrame.dev/utils/helpers#table-keys-table)
-- [`table.values()`](https://voxrame.dev/utils/helpers#table-values-table)
-- [`table.has_key()`](https://voxrame.dev/utils/helpers#table-has_key-table-key)
-- [`table.contains`/`.has_value()`](https://voxrame.dev/utils/helpers#table-contains-has-value-table-value)
-- [`table.keys_of()`](https://voxrame.dev/utils/helpers#table-keys_of-table-value)
-- [`table.has_any_key()`](https://voxrame.dev/utils/helpers#table-has_any_key-table-find_keys)
-- [`table.equals()`](https://voxrame.dev/utils/helpers#table-equals-table1-table2)
-- [`table.is_empty()`](https://voxrame.dev/utils/helpers#table-is_empty-table)
-- [`table.is_position()`](https://voxrame.dev/utils/helpers#table-is_position-table)
-- [`table.each_value_is()`](https://voxrame.dev/utils/helpers#table-each_value_is-table-value)
-- [`table.count()`](https://voxrame.dev/utils/helpers#table-count-table)
-- [`table.generate_sequence()`](https://voxrame.dev/utils/helpers#table-generate_sequence-max-start_from-step)
+[`table.keys()`](https://voxrame.dev/utils/helpers#table-keys-table)  
+[`table.values()`](https://voxrame.dev/utils/helpers#table-values-table)  
+[`table.has_key()`](https://voxrame.dev/utils/helpers#table-has-key-table-key)  
+[`table.contains`/`.has_value()`](https://voxrame.dev/utils/helpers#table-contains-has-value-table-value)  
+[`table.keys_of()`](https://voxrame.dev/utils/helpers#table-keys-of-table-value)  
+[`table.has_any_key()`](https://voxrame.dev/utils/helpers#table-has-any-key-table-find-keys)  
+[`table.equals()`](https://voxrame.dev/utils/helpers#table-equals-table1-table2)  
+[`table.is_empty()`](https://voxrame.dev/utils/helpers#table-is-empty-table)  
+[`table.is_position()`](https://voxrame.dev/utils/helpers#table-is-position-table)  
+[`table.each_value_is()`](https://voxrame.dev/utils/helpers#table-each-value-is-table-value)  
+[`table.count()`](https://voxrame.dev/utils/helpers#table-count-table)  
+[`table.generate_sequence()`](https://voxrame.dev/utils/helpers#table-generate-sequence-max-start-from-step)  
 
 </td>
 <td>
 
-- [`table.only()`](https://voxrame.dev/utils/helpers#table-only-table-only)
-- [`table.except()`](https://voxrame.dev/utils/helpers#table-except-table-keys)
-- [`table.merge()`](https://voxrame.dev/utils/helpers#table-merge-table1-table2-overwrite)
-- [`table.join()`](https://voxrame.dev/utils/helpers#table-join-table1-table2-recursively)
-- [`table.overwrite()`](https://voxrame.dev/utils/helpers#table-overwrite-table1-table2)
-- [`table.merge_values()`](https://voxrame.dev/utils/helpers#table-merge_values-table1-table2)
-- [`table.map()`](https://voxrame.dev/utils/helpers#table-map-table-callback-overwrite)
-- [`table.walk()`/`.each()`](https://voxrame.dev/utils/helpers#table-walk-each-table-callback)
-- [`table.multiply_each_value()`](https://voxrame.dev/utils/helpers#table-multiply_each_value-table-multiplier_table)
-- [`table.add_values()`](https://voxrame.dev/utils/helpers#table-add_values-table1-table2-empty_value-overwrite)
-- [`table.sub_values()`](https://voxrame.dev/utils/helpers#table-sub_values-table1-table2-empty_value-overwrite)
-- [`table.mul_values()`](https://voxrame.dev/utils/helpers#table-mul_values-table1-table2-empty_value-overwrite)
-- [`table.div_values()`](https://voxrame.dev/utils/helpers#table-div_values-table1-table2-empty_value-overwrite)
+[`table.only()`](https://voxrame.dev/utils/helpers#table-only-table-only)  
+[`table.except()`](https://voxrame.dev/utils/helpers#table-except-table-keys)  
+[`table.merge()`](https://voxrame.dev/utils/helpers#table-merge-table1-table2-overwrite)  
+[`table.join()`](https://voxrame.dev/utils/helpers#table-join-table1-table2-recursively)  
+[`table.overwrite()`](https://voxrame.dev/utils/helpers#table-overwrite-table1-table2)  
+[`table.merge_values()`](https://voxrame.dev/utils/helpers#table-merge-values-table1-table2)  
+[`table.map()`](https://voxrame.dev/utils/helpers#table-map-table-callback-overwrite)  
+[`table.walk()`/`.each()`](https://voxrame.dev/utils/helpers#table-walk-each-table-callback)  
+[`table.multiply_each_value()`](https://voxrame.dev/utils/helpers#table-multiply-each-value-table-multiplier-table)  
+[`table.add_values()`](https://voxrame.dev/utils/helpers#table-add-values-table1-table2-empty-value-overwrite)  
+[`table.sub_values()`](https://voxrame.dev/utils/helpers#table-sub-values-table1-table2-empty-value-overwrite)  
+[`table.mul_values()`](https://voxrame.dev/utils/helpers#table-mul-values-table1-table2-empty-value-overwrite)  
+[`table.div_values()`](https://voxrame.dev/utils/helpers#table-div-values-table1-table2-empty-value-overwrite)  
 
 </td>
 </tr>
@@ -108,17 +106,17 @@ See [Detailed documentation](#detailed-documentation) above for the full descrip
 <tr valign="top">
 <td>
 
-- [`math.limit`/`clamp()`](https://voxrame.dev/utils/helpers#math-limit-clamp-value-min-max)
-- [`math.is_within()`](https://voxrame.dev/utils/helpers#math-is_within-value-min-max)
-- [`math.is_among()`](https://voxrame.dev/utils/helpers#math-is_among-value-min-max)
-- [`math.is_in_range()`](https://voxrame.dev/utils/helpers#math-is_in_range-value-min-max)
-- [`math.is_near()`](https://voxrame.dev/utils/helpers#math-is_near-value-near-gap)
+[`math.limit`/`clamp()`](https://voxrame.dev/utils/helpers#math-limit-clamp-value-min-max)  
+[`math.is_within()`](https://voxrame.dev/utils/helpers#math-is-within-value-min-max)  
+[`math.is_among()`](https://voxrame.dev/utils/helpers#math-is-among-value-min-max)  
+[`math.is_in_range()`](https://voxrame.dev/utils/helpers#math-is-in-range-value-min-max)  
+[`math.is_near()`](https://voxrame.dev/utils/helpers#math-is-near-value-near-gap)  
 
 </td>
 <td>
 
-- [`math.quadratic_equation_roots()`](https://voxrame.dev/utils/helpers#math-quadratic_equation_roots-a-b-c)
-- [`math.point_on_circle()`](https://voxrame.dev/utils/helpers#math-point_on_circle-radius-angle)
+[`math.quadratic_equation_roots()`](https://voxrame.dev/utils/helpers#math-quadratic-equation-roots-a-b-c)  
+[`math.point_on_circle()`](https://voxrame.dev/utils/helpers#math-point-on-circle-radius-angle)  
 
 </td>
 </tr>
@@ -130,21 +128,21 @@ See [Detailed documentation](#detailed-documentation) above for the full descrip
 <tr valign="top">
 <td>
 
-- [`__FILE__()`](https://voxrame.dev/utils/helpers#__file__-depth-full)
-- [`__LINE__()`](https://voxrame.dev/utils/helpers#__line__-depth)
-- [`__FILE_LINE__()`](https://voxrame.dev/utils/helpers#__file_line__-depth-full)
-- [`__DIR__()`](https://voxrame.dev/utils/helpers#__dir__-depth)
-- [`__FUNC__()`](https://voxrame.dev/utils/helpers#__func__-depth)
-- [`print_dump()`](https://voxrame.dev/utils/helpers#print_dump-depth-with_trace) / [`pd()`](https://voxrame.dev/utils/helpers#pd) / [`pdt()`](https://voxrame.dev/utils/helpers#pdt)
+[`__FILE__()`](https://voxrame.dev/utils/helpers#file-depth-full)  
+[`__LINE__()`](https://voxrame.dev/utils/helpers#line-depth)  
+[`__FILE_LINE__()`](https://voxrame.dev/utils/helpers#file-line-depth-full)  
+[`__DIR__()`](https://voxrame.dev/utils/helpers#dir-depth)  
+[`__FUNC__()`](https://voxrame.dev/utils/helpers#func-depth)  
+[`print_dump()`](https://voxrame.dev/utils/helpers#print-dump-depth-with-trace) / [`pd()`](https://voxrame.dev/utils/helpers#pd) / [`pdt()`](https://voxrame.dev/utils/helpers#pdt)  
 
 </td>
 <td>
 
-- [`debug.get_stack_frames()`](https://voxrame.dev/utils/helpers#debug-get_stack_frames-depth)
-- [`debug.render_backtrace()`](https://voxrame.dev/utils/helpers#debug-render_backtrace-frames-plain)
-- [`debug.print_backtrace()`](https://voxrame.dev/utils/helpers#debug-print_backtrace-frames)
-- [`debug.measure()`](https://voxrame.dev/utils/helpers#debug-measure-name-callback-print_result)
-- [`debug.measure_print()`](https://voxrame.dev/utils/helpers#debug-measure_print-name)
+[`debug.get_stack_frames()`](https://voxrame.dev/utils/helpers#debug-get-stack-frames-depth)  
+[`debug.render_backtrace()`](https://voxrame.dev/utils/helpers#debug-render-backtrace-frames-plain)  
+[`debug.print_backtrace()`](https://voxrame.dev/utils/helpers#debug-print-backtrace-frames)  
+[`debug.measure()`](https://voxrame.dev/utils/helpers#debug-measure-name-callback-print-result)  
+[`debug.measure_print()`](https://voxrame.dev/utils/helpers#debug-measure-print-name)  
 
 </td>
 </tr>
@@ -152,14 +150,14 @@ See [Detailed documentation](#detailed-documentation) above for the full descrip
 
 ### [Exception](https://voxrame.dev/utils/helpers#exception)
 
-- [`exception.try()`](https://voxrame.dev/utils/helpers#exception-try-callback)
-- [`:catch()`](https://voxrame.dev/utils/helpers#catch-handler)
+[`exception.try()`](https://voxrame.dev/utils/helpers#exception-try-callback)  
+[`:catch()`](https://voxrame.dev/utils/helpers#catch-handler)  
 
 ### [Global](https://voxrame.dev/utils/helpers#global)
 
-- [`errorf()`](https://voxrame.dev/utils/helpers#errorf-message)
-- [`errorlf()`](https://voxrame.dev/utils/helpers#errorlf-message-level)
-- [`assertf()`](https://voxrame.dev/utils/helpers#assertf-condition-message)
+[`errorf()`](https://voxrame.dev/utils/helpers#errorf-message)  
+[`errorlf()`](https://voxrame.dev/utils/helpers#errorlf-message-level)  
+[`assertf()`](https://voxrame.dev/utils/helpers#assertf-condition-message)  
 
 ### [IO](https://voxrame.dev/utils/helpers#io)
 
@@ -167,15 +165,15 @@ See [Detailed documentation](#detailed-documentation) above for the full descrip
 <tr valign="top">
 <td>
 
-- [`io.file_exists()`](https://voxrame.dev/utils/helpers#io-file_exists-name)
-- [`io.dirname()`](https://voxrame.dev/utils/helpers#io-dirname-path)
+[`io.file_exists()`](https://voxrame.dev/utils/helpers#io-file-exists-name)  
+[`io.dirname()`](https://voxrame.dev/utils/helpers#io-dirname-path)  
 
 </td>
 <td>
 
-- [`io.write_to_file()`](https://voxrame.dev/utils/helpers#io-write_to_file-filepath-content-mode)
-- [`io.read_from_file()`](https://voxrame.dev/utils/helpers#io-read_from_file-filepath-mode)
-- [`io.get_file_error()`](https://voxrame.dev/utils/helpers#io-get_file_error)
+[`io.write_to_file()`](https://voxrame.dev/utils/helpers#io-write-to-file-filepath-content-mode)  
+[`io.read_from_file()`](https://voxrame.dev/utils/helpers#io-read-from-file-filepath-mode)  
+[`io.get_file_error()`](https://voxrame.dev/utils/helpers#io-get-file-error)  
 
 </td>
 </tr>
@@ -183,7 +181,7 @@ See [Detailed documentation](#detailed-documentation) above for the full descrip
 
 ### [OS](https://voxrame.dev/utils/helpers#os)
 
-- [`os.DIRECTORY_SEPARATOR`](https://voxrame.dev/utils/helpers#os-directory_separator)
+[`os.DIRECTORY_SEPARATOR`](https://voxrame.dev/utils/helpers#os-directory-separator)  
 
 ---
 
