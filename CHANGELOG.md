@@ -1,0 +1,334 @@
+# Change Log
+
+## [1.0.0-alfa.1](https://github.com/Voxrame/Voxrame/releases/tag/1.0.0-alfa.1)
+ - Add luacheck CI (general, cyclomatic-complexity), & `funding.yml`.
+ - `helpers`: `term`: add `.supports_osc8`, `.supports_truecolor`, `.color()`, `rgb_to_256()`, underline types & colors. VX-9.
+ - Fixed the loss of the started fuel unit VX-13
+ - `helpers`: fix module name.
+ - Projectiles: add `on_blast()` call. Relates to lord-server/lord#2383
+ - Fix: prevent node explosion in nazgul area (#4)
+ - `helpers`: Fix `term.supports_ansi` detetection for `Windows_NT`. LG-2170
+ - `builtin_ext`: improve doc-block annotation for `SettingsGroup:get_bool()`
+ - Helpers: rename tech name `dev_helpers` -> `voxrame_helpers`. VX-10.
+ - Add `.editorconfig`.
+ - Add scripts for splitting; add `.gitattributes`. VX-6.
+ - Improve `helpers/readme.md`. VX-11.
+ - Fix `<center>` alignment in `readme`s. VX-11.
+ - Fix2 center alignment  in `readme`s. VX-11.
+ - CI: add `split` workflow. VX-6.
+ - CI: `split`: use token for allow pushes. VX-6.
+ - CI: `split`: use HTTPS instead git+ssh. VX-6.
+ - Sound for fuel device (#2)
+ - Migrate to `core.` instead `minetest.`. VX-16.
+ - Distribution: CDB: add `voxrame_` prefix for mods. VX-17.
+ - `builtin_ext`: FormSpec: ability to use `boolean` in styles.
+ - `builtin_ext`: FormSpec/Style: improve annotation.
+ - Linting: improve annotations, fix warnings for `base_classes` & `helpers`.
+ - Linting: fix warnings for `archery`, `controls`, `damage`, `defense`, `fuel_device`, `map`.
+ - Linting: fix all remaining problems (`builtin_ext`,`projectiles`).
+ - Linting: fix unused value.
+ - Linting: fix double-definition of var.
+ - `helpers`: hide global `term` under `Voxrame.terminal`. VX-11.
+ - `fuel_device`: stop playing sound, when node removed. LG-2197.
+ - `helpers`: add `Voxrame.exception.try()`, `debug.get_stack_frames()`, `debug.render_backtrace()`. VX-19.
+ - helpers: fix typo `debug.mesure_print()` -> `debug.measure_print()`. VX-20.
+ - helpers: readme: fix Overview links (VitePress anchors, no bullets).
+ - CI: propagate same tag to all split sub-mod repos on tag push. VX-21
+
+
+## Commits from **[Lord Game](https://github.com/lord-server/lord)**
+ - move `lordlib` into `Core` folder
+ - `Core/helpers`: add common `table` helpers
+ - move `ru_lower_upper.lua` into `Core/helpers`; fix luacheck. relates to #922
+ - `Core/helpers/string`: use locals, add doc-blocks. relates to #922
+ - Use Core/helpers/table istead local functions. Closes #922
+ - create `World` subfolder; move obvious mods; change readme-s; Relates to #969, #967
+ - Core/helpers: add `table.merge_values()`
+ - Nazgul areas: spawns & no destroy (#1109)
+ - Add checks for alias recipes. Fix sign_wall & door_steel recipes. Fixes #1127
+ - Merge branch 'master' into dev
+ - Mobs: Traders: Refactoring: extract common definition. Relates to #1148
+ - Add `string.is_one_of()`. Decrease cyclomatic complexity in trader/Inventory::on_move. Closes #933
+ - Add debug helpers into `Core/helpers`.
+ - Fix luacheck for debug functions
+ - Fix debug functions `__FILE__()` & `__LINE__()`
+ - Translate all builtin prases (`Core/builtin/`). Remove our partial translations. Closes #1186. Relates to #1174, #1186
+ - Upadate builtin translations to latest version. Relates to #1186.
+ - MapGen: extend `minetest` with `.register_on_dungeon_generated()`. Relates to #1140, #1141
+ - MapGen: add detection of rooms walls in dungeons. Relates to #1140 #1141
+ - MapGen: fix cyclomatic complexity in `find_room_walls()`
+ - MapGen: add ability to set nodes `param2` when generating dungeon. Relates to #1141
+ - MapGen: Dungeons: corrected walls calc/finding. Relates to #1140, #1141
+ - MapGen: Dungeons: more readable code. Relates to #1140, #1141
+ - MapGen: Dungeons: rename var, fix type hint. Relates to #1140, #1141
+ - Wooden blocks: Refactoring `lottplants`: extract `regiter_planks` function. Relates to #1236
+ - Refactoring: add `string.{starts_with,ens_with,contains}()` functions. Relates to #1247
+ - Add `io.file_exits()` & `os.DIRECTORY_SEPARATOR` helpers. Relates to #925
+ - Remove our builtin translations. Closes #1187
+ - Extract voxel manipulations wraper `minetest.with_map_part_do()`. Relates to #1084, #1058, #663, #661.
+ - Refactoring `lottplants`: extract planks into separate mod. Relates to #1238. Closes #1295
+ - Extract textures folder detection in `Core`. Relates to #1233
+ - Ground: move `lottmapgen:mordor_sand` into `lord_ground`. Relates to #1309
+ - Rocks: Nodes:  add `lord_rocks` mod backbone. Relates to #1270 #1283
+ - Ground: add Mordor Lands spreading. Closes #1310
+ - Add mod `player_nametag` for managing displayed phrase. Closes #1427
+ - NameTag Manager: add ability to pass params into `Segment:update()`. Relates to #1427
+ - NameTag Manager: add ability to use `Segment:update()` with values & ability to use function as `value`. Relates to #1427
+ - Fix nametag cleaning
+ - Add `http_client` mod skeleton. Relates to #1401 #1402
+ - Added type hints for http defs (fixes #1403)
+ - Implement HTTP Client. Closes #1402
+ - Game-Web: add `lord_web_api`. Closes #1333
+ - Game-Web: rename mod `http_client` -> `http`. Relates to #1402
+ - Move `Resource` class into `http` mod. Relates to #1402 #1333
+ - `http` mod fixes. Relates to #1402.
+ - Game-Web: add integration for clan player add & del. Closes #1338, closes #1339
+ - Add `io.write_to_file()` helper. Relates to #925. Needs for #1502
+ - Refactor `core_function`: check if last controls already inited. Extract `notify_subscribers()`. Fixes #1533. Fixes #936.
+ - `http.Client`: add `http.debug` setting for dumping `request` & `result`.
+ - Refactoring: add `minetest.foreach_player_every(sec, callback)`. Closes #1553
+ - Refactoring: extract `controls` mod from `lordlib`. Closes #1550.
+ - Replace `io.<...>` file operations with `io.read_from_file()` and `io.write_to_file()`. Closes #925
+ - Add `minetest.mod()` helper. Relates to #913
+ - Remove forgotten dump.
+ - Add unified `require()`; add `minetest.get_mod_require()`; now `minetest.mod()` automatically exchaenge `require()` for mod. Relates to #913
+ - Use new unified `require()` via `minetest.mod()` in all mods. Closes #913.
+ - Refactoring: `controls`: rename `lord` -> `controls`; isolate internal funcs|vars. Realates #1557
+ - Refactoring: `controls`: extract `Event` class. Realates to #1557
+ - Refactoring: `controls`: improve readability. Closes #1557
+ - Refactoring: extract `wield_item` api mod. Closes #1552
+ - Refactoring: `lordlib`: move `give_or_drop()` -> `builtin`; `each_value_equals()` -> `helpers`. Closes #1559.
+ - Refactoring: move `equipment` into `Core`. Cloaes #1560. Relates to #967
+ - Refactoring: add unified `debug` mode. Closes #1561
+ - Refactoring: add `helpers.Logger` class. Relates to #1556
+ - Refactoring: add lazy loading field `logger` into `minetest.Mod`. Realates to #1556
+ - Fix impossibility of obtaining http API. Broken while #913
+ - Remove forgotten unused code; rename param. Relates #1556
+ - Refactoring: add `base_classes.Event` class. Relates to #1558
+ - Refactoring: use base `Event` in `controls` mod. Relates to #1558
+ - Refactoring: use base `Event` in `wield_item` & `clans`. Closes #1558
+ - Add forgotten dependencies
+ - `helpers`: add `debug.get_function_code()`
+ - `base_classes`: improve `Event`: ability to link generated by `:on()` to another object. Needs for #1565
+ - Refactoring: `base_classes`: add `BaseForm` first version (no mixins). Relates to #1565
+ - `helpers`: add `_G.errorf` & `_G.errorlf` functions with `string.format()` applying
+ - `helpers`: Fix `_G.errorlf()` set level == 2 for `_G.errorf()`. No luackeck & MT warnings.
+ - `base_classes`: add mixin system for Form. Relates to #1565
+ - `base_classes`: add `ForNode` & `WithTabs` minxins for `Form`s. Relates to #1565
+ - `base_classes`: add `Personal` form mixin (extract from `Form.Base`. Relates to #1565
+ - `base_classes`: clean doc-blocks for forms classes; move fogotten `on_close` to `Personal. Relates to #1565
+ - `base_classes`: `Event`: improve `:extended()`, clean doc-blocks. Relates to #1558, #1565
+ - `base_classes`: `Form`: improve `Form.Event:extended()`; fix form events subscriptions. Relates to #1565
+ - `Core`: `helpers`: fix `table.contains` as of minetest/minetest#14906
+ - `Core`: `builtin` extension: add `minetest.get_all_craft_recipes_from(ingredient)` helper. Relates to #1501, #1573
+ - IDE-helper: add `RecipeEntryTable` class & `minetest.get_all_craft_recipes()` descriptions.
+ - Helpers: add `math.limit`/`math.clamp` function.
+ - Add ObjectState class. Closes #1515
+ - Fix `mod.logger` lazy loading.
+ - Damage System: add basic `Core/damage` & `Game/lord_damage`. Closes #1622
+ - Damage System: Basic: add `damage.Type`; and events; add external API. Closes #1620. Closes #1509
+ - Damage System: add `damage.Type` detection for damaging nodes. Relates to #1626
+ - Damage System: pass damage type to `on_damage` subscribers. Relates to #1509, #1620
+ - Damage System: add `damage.Type` detection for hitting tools. Closes to #1626
+ - Damage System: fix typo. Relates to #1626
+ - Damage System: detect `damage.Type` of Playey|Entity hand. Closes #1634
+ - Refactoring: `Defense`: move into `Core`. Relates to #1635
+ - Refactoring: `Defense`: remove unused; rename mod. Relates to #1635
+ - Refactoring: `Defense`: move `set_armor_groups` into `PlayerDefense`. Relates to #1635
+ - Refactoring: `Defense`: rename var; fix `for_player()`. Relates to #1635
+ - Refactoring: `Defense`: separate `lord_defense` mod. Closes #1635
+ - Refactoring: `Defense`: add Events `on_init()` & `on_change`; use for hud. Closes #1640
+ - Damage System: ability to integrate damage modifier. Closes #1642
+ - Damage System: add defense from specific node damage. Closes #1641
+ - Damage System: add ability to apply periodical damage. Closes #1625
+ - Just code style fixes.
+ - Physics: refactoring: move mod from `_experimental` -> `Core`. Relates to #1666
+ - Physics: Refactoring: add API; ability to `:set()|:get()` for player; store localy & merge new velues in `:set()`. Relates to #1666
+ - Physics: Refactoring: extract `Game/lord_physics`. Closes #1666
+ - Physics: Refactoring: add forgotten dependancy. Relates to #1666
+ - Fix the crash when throwing a potion arrow into player. Closes #1674 (#1675)
+ - Merge branch 'master' into dev
+ - Effects System: add `Core/effects` mod backbone. Closes #1656
+ - Add some TODO comments
+ - Refactoring: `equipment`: add `equipment.ForPlayer:not_empty()` iterator.
+ - Effects System: add ability to register new `Effect` with own `:on_{start|stop}()` functions. Closes #1667
+ - Effects System: ability to register & apply effect. Closes #1667. Closes #1668
+ - Effects System: `lord_effect`: add mod backbone & register our effects for `speed`,`jump`,`health`. Relates to #1676
+ - `Core/base_classes`: add `DetachedInventory` base class. Closes #1683
+ - `Core`: `builtin`: ability to add custom craft methods for `minetest.{register_craft|get_craft_result}()`. Closes #1685
+ - `Core`: `builtin`: fix retur value for `minetest.get_craft_result`. Relates to #1685
+ - `Core`: `builtin`: support `group:*` for custom craft recipes. Closes #1686
+ - `Core`: ability to `:return_forgotten()` in `base_classes.DetachedInventory`. Closes #1687
+ - `Core`: `base_classes`: add Form Mixin `WithDetached`. Closes #1684
+ - Limit defense value. Closes #1680
+ - Merge branch 'master' into dev
+ - `Builtin`: custom craft: decrese input with `groups`; make respose fully compatible with MT. Relates to #1685, #1686
+ - `Builtin`: fix search of corresponding recipe. Relates to #1685
+ - `Builtin`: custom craft: fix decrease of input. Relates to #1685
+ - Fix equipment `ForPlayer:not_empty(kind)` iterator. Fixes #1694
+ - `Core`: `base_classes`: refactor `WithTabs` mixin & its usage. Relates to #1695
+ - `Core`: `base_classes`: add `Element,Tab` class. Closes #1695
+ - `Core`: `base_classes`: abitlity to add tabs in forms with `WithTabs` mixin. Relates to #1696.
+ - `Core`: `base_classes`: change mixer system for Form Mixins. Relates to #1696
+ - `Core`: `base_clases`: improve Form Mixins. Relates to #1696, #1020
+ - `Core`: `base_classes`: abitlity to pass args into `Form.Base::{register|open|close}()` & catch in `::on_{register|open|close}()`. Closes #1697
+ - `Core`: `base_classes`: `WithTabs` mixin: ability to specify form spec "head". Closes #1700
+ - `Core`: `base_classes`: `WithTabs` mixin: ability to specify own handling for each tab. Closes #1702
+ - `Core`: `base_classes`: `Personal` mixin: ability to specify to not crear opened form. Closes #1704
+ - `Builtin`: add `minetest.FormSpec` & `minetest.FormSpec.Style`. Closes #1706
+ - Add helper `minetest.register_mirrored_crafts()`. Closes #492
+ - Fix `equipment.ForPlayer:not_empty()` iterator. Closes #1716.
+ - Forms: remove legacy `default.{gui_bg[_img]|gui_slots}`. Relates to #1708
+ - Hotfix: fix Player Inventory tabs. Fixes #1722
+ - Escape formspec values. Fixes #1723
+ - Effects Int: add `lord_potions` first version. Closes #1679
+ - Refactoring: `Core`: add `minetest.get_mod_translator()`. Closes #1753
+ - Interior: add wooden Pint. Closes #1244
+ - Add mods: projectiles and lord_projectiles
+ - Add helper functions for table class
+ - `Core`: ability to add crafts of type `cooking` for custom `method`s. Closes #1786
+ - Refactoring: extract and replace in project `minetest.swap_node_if_not_same()`. Closes #1793
+ - Artisan Benches: Fuel Device: first mod version: extract `Device` class from `grinder`. Relates to #1787
+ - Artisan Benches: Fuel Device: extract `Processor` from `grinder` mod. Relates to #1787
+ - Artisan Benches: Fuel Device: extract nodes registrations and common definitions from `grinder`. Closes #1787. Closes #1788
+ - Artisan Benches: Fuel Device: ability to specify inventories size(s). Relates to #1788, #1789
+ - Artisan Benches: Fuel Device: fix fogotten node name. Relates to #1787
+ - `Core`: `builtin`: ability to specify items count for registering recipes. Closes #1802
+ - Artisan Benches: Fuel Device: small improvements, fix `get_craft_result()` `width`. Relates to #1787
+ - `Core`: `builtin`: custom craft method takes exactly from the same input cell.
+ - Artisan Benches: Fuel Device: add inv sizes, `:init()`, `:is_empty()` into `Device` & reuse it. Relates to #1787, #1789
+ - Artisan Benches: Fuel Device: add LBM for re-init Device. Relates to #1787, #1789
+ - `Core`: `builtin`: fix validation false positive error. Relates to #1734
+ - `Core`: `builtin`: crafts: ability to find custom crafts via `core.get_craft_recipe()`. Closes #1814
+ - `Core`: `helpers`: add `table.count()` for assoc arrays
+ - `Core`: Base form: ability to pass args into `:get_spec()` via `:open()`. Relates to #1735
+ - `Core`: `helpers`: rename/refactor `table.{apply_function_to_every_value->map}()`; cleanup debug.
+ - `Core`: `helpers`: add `table.{add|sub|mul|div}_values(t1,t2)` functions.
+ - `physics`: ability to add/sub/mul/div. Closes #1819
+ - Effects System: ability to pass additional args into `:start()`/`:stop()` via `:apply()`. Closes #1823
+ - `Physics`: ability to specify reason and manage by reson. Closes #1824
+ - Effects System: ability to specify reason for effect & stop running effect early. Closes #1825
+ - `Core`: `helpers`: add `table.values()`
+ - Effects System: ability to get all effects currently acting on player. Closes #1669
+ - Effects System: reset all effects on player leave or die. Closes #1832. Closes #1833
+ - Fuel device: fix imediatly result on first step. Fixes #1834
+ - Craft System: ability to know recipe while `minetest.get_craft_result()`. Relates to #1852
+ - Rework new bows (WIP part 4)
+ - Lord Archery: changed Processing, so a projectile is taken before charging Archery item (bow or crossbow) now preserves a loaded projectile Changed speed and damage calculation formulas so it makes more sense Add 3rd stage for crossbows (closes #1862)
+ - Lord Archery: Add Throwable support (WIP) (#1866) Fix projectile speed formula to cause less bugs
+ - Add bows and crossbows (closes #1861, #1858; patially #1523, #1863) Move the archery mods out of _experimental (closes #1774, #1775) Added stable support for Throwable (closes #1866)
+ - Lord Archery: remove debug messages
+ - Remove mods: Arrows, Throwing, Lottthrowing (closes #921) Lord Archery: add all axes (closes #1867, #1868) Lord Archery: move all arrows, bows etc. to the new archery engine (closes #1523, #1863) Lord Archery: mobs are now using new archery engine Lord Archery: added crafts Lord Archery: mobs are now aggroed on hit (closes #1874)
+ - Lord Archery: silence luacheck warning
+ - Lord Archery: reduce cyclomatic complexity
+ - Lord Archery: fix projectile pickup mechanism
+ - Fix dropping some projectiles when they timer expires
+ - Balance difficulty of balrogs and nazguls
+ - Fix another crash. Change fire ball explosive damage to fire
+ - Make fire ball and dark ball a sprite. Fix a crash again.
+ - `Core`: `Form`: add forgotten closing spec in `Form:close()`.
+ - Merge branch 'master' into dev
+ - `Core`: `base_classes`: add `Form:player()` method.
+ - `Core`: `helpers`: add `table.only()` helper.
+ - `Core`: `builtin`: `FormSpec`: actualize `optional` params of all functions.
+ - `Core`: `player_nametag`: fix redifinition of previously registered segments.
+ - Fix #1945: apply rotation before applying speed
+ - Fix #1897: set use_texture_alpha to false
+ - `Core`: `helpers`: add `math.quadratic_equation_roots()`.
+ - Remove lordlib, fix depends in mods. Closes #946
+ - Fix #1938: Projectiles now always start a timer.
+ - PvP: Projectile: refactoring: fix doc-block notation, add additional `get(name|nil)` function. Relates to #1996.
+ - `Core`: `base_classes`: improve `Form.Base` close handling; add inline documentation. Also fixes #1976
+ - `Core`: `helpers`: add `pd()` shorten for `print(dump(...))`
+ - PvP: Projectiles: fix crash on crossbow breaks. Fixes #2013
+ - `Core`: `builtin`: fix `FormSpec.{list|listring}()` functions.
+ - `Core`: `builtin`: add `Texture.repeat_vertically` helpper.
+ - `Core`: `builtin`: add `Tile.anim_vertical_frames()` helpper.
+ - `Core`: add separate mod `factions`. Closes #2075. Relates to #2074.
+ - `helpers`: `table`: add `table.generate_sequence(max, start_from, step)` helpper.
+ - `Core`: `base_classes`: add `base_classes.HUD` class for easy HUD control.
+ - `base_classes.HUD`: Add ability to define common HUD-properties & ability to pass any params into `:get_definitions()` via `:show()`.
+ - If previously on first login was error, we still need to init equipment. Closes #2165
+ - Added tips for FormSpec.list func
+ - `Core`: add `SettingsGroup` class to simplify working with settings of one group.
+ - `Core`: add `mod.Settings` class, `minetest.get_mod_setting()`, lazy via `mod.settings`
+ - `Core`: add `SettingsGroup:get_bool(name, default)` helper.
+ - `Core`: `helpers`: add `table.is_position()` function to check var is pos.
+ - `Core`: fix `SettingsGroup:get_bool()` internal validation (assertion).
+ - `Core`: precise detection of room walls of dungeons.
+ - `Core/helpers`: add `assertf()` helper, fix `table.walk()`
+ - `Core/base_classes`: add classes for simplifing work with `meta`.
+ - `Core/base_classes`: `Meta.Base`: fix unexpected json serialization; extract `:get_type()`.
+ - `Core/base_classes`: ability to use for all `MetaDataRef` childs, not only `NodeMetaRef`.
+ - `Core/base_classes`: ability to specify key prefix.
+ - `helpers`: add `math.{is_within|is_among|is_in_range|is_near}()` helpers.
+ - `Core/base_classes`: `Meta.Base`: fix getting unsetted property of type `table`.
+ - `Core/base_classes`: `Meta.Base`: decrease cyclomatic comlexity of `:get_typified()`.
+ - `Core/helpers`: fix debug macroses.
+ - LG-1902 #resolve `Core/helpers`: debug: stylized stacktrace & `pd()` with links to open IDE.
+ - LG-1903: `Core/helpers`: debug: ability to pass several params into pd()
+ - LG-1905: `Core/helpers`: debug: dump with ability to view stack trace via `pdt()` function.
+ - LG-1906: `Core/helpers`: debug: catch errors handled by c-side.
+ - LG-1907: `Core/helpers`: `string.replace` now returns only 1 value (all usages was inspected); also add `string.remove()` helper.
+ - `Core/helpers`: debug: dump function code if passed arg is function; increase trace depth. Relates to LG-1903
+ - `Core/helpers`: add `string.vxr_split()` helper.
+ - `Core/base_classes`: `Tab`: ability to add some logic on `instantiate()`.
+ - `Core/helpers`: add `string.or_nil(value)` cast helper.
+ - `Core/base_classes`: `Meta/Base`: fix save `nil` for fields of `string` type.
+ - `Core`: `builtin_ext`: ability to pass `boolean` into `FormSpec.field_close_on_enter()`
+ - `Core`: `builtin_ext`: add `minetest.{find_nodes_near|find_nodes_near_except|find_node_near_except}()` helpers.
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/base_classes`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/builtin`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/controls`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/http`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/damage`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/defence`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/helpers`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/physics`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/player_nametag`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/wield_item`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/effects`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/{equipment|factions|fuel_device}`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/archery`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/equipment`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/{builtin|helpers}`. LG-1980
+ - Modern Lua Plugins: fix errors in `mods/lord/Core/{archery|fuel_device|nodes_dump|projectiles}`. LG-1980 (closes)
+ - LG-1816
+ - Distribution: CDB: rename `builtin` mod. LG-1942
+ - Distribution: CDB: add licenses for `Core` mods. LG-2046
+ - `helpers`: move `term.lua` up from `lua_ext/`.
+ - Gen.Library: Extend `VoxelArea`: add `:set_data[_param2|light]()`, `:foreach()`, `:set_node_at()`, `:fill_with()` & `:place_pile()`. LG-2049
+ - Gen.Library: Extend `VoxelArea`: improve `:place_pile()`: add peak and fillnes. LG-2049
+ - Gen.Library: extend `vector`: add `:at_{north|south|east|west}()` & `:{above|under}()` helpers. Relates to LG-2049
+ - Gen.Library: Extend `VoxelArea`: add `:content_of()`, `:is[_not]()`,  `:fill_with()` can take `chance` arg, abbility to break `:foreach()`, improve `:place_pile()` readability. LG-2049.
+ - Fix warnings about calling `:set_lighting()`/`:calc_lighting()` on not mapgen `VoxelManip`.
+ - Gen.Library: Extend `VoxelArea`: ability to pass `param2` into `:fill_with()`. LG-2049
+ - Gen.Library: Extend `VoxelArea`: reduce cyclomatic complexity. LG-2049
+ - Gen.Library: `Voxrame.map` module: `Room` class. LG-2051
+ - Gen.Library: Extend `VoxelArea`: fix `:fill_with[_chance]()`. LG-2049 `:foreach()` method does not pass `data_param2`, so we cant use it.
+ - Gen.Library: actualize types and use new `IntegerVector`/`PositionVector` types. LG-2051
+ - Gen.Library: change namespace naming. LG-2051
+ - Gen.Library: `Voxrame.map.Cuboid` draft as class. LG-2059
+ - Gen.Library: `Voxrame.map.room.Exit` class. LG-2053
+ - Gen.Library: move common methods into `Cuboid` instead `Room`. LG-2059
+ - `helpers`: add `debug.mesure(name, callback, print_result)` & `debug.mesure_print(name)`.
+ - Gen.Library: `VoxelArea`: add `:get_node_{id|name}_at()`. Relates to LG-2049 LG-1829.
+ - `helpers`: `debug.measure()` also returns `print_string`; fix all diagnostic warnings
+ - `builtin_ext`: add `minetest.Mod:measure()` which is measures only if debug mod for mod is on
+ - Annotations: `buildings`: fix emmylua warnings.
+ - `builtin_ext`: `vector`: ability to pass `n` into "side"-methods; add `:at(side, n)`
+ - Gen.Library: add repositioning method for `Cuboid` & `Exit`. LG-2059 LG-2053
+ - Gen.Library: `Room`: ability to just specify `wall_blocks` in child classes. LG-2051
+ - Gen.Library: `wall.Type`: extend with useful helpers. Relates to LG-2058 LG-2060
+ - Gen.Library: `Room`: add useful repositioning helpers. Relates to LG-2060
+ - Gen.Library: `Room.exits`: now associative array. Relates to LG-2060
+ - Gen.Library: add `Connector`, `Connectabe` interfaces & implemetation for `Exit`,`Room`. LG-2060
+ - Gen.Library: add `Corridor` class. LG-2058
+ - Gen.Library: fix emmylua diagnosting warning. LG-2059
+ - `builin_ext`: `vector`: add `direction_{axis|side}()` helpers; improve annotaion docs.
+ - Gen.Library: use new helpers of `vector`. LG-2058 LG-2060
+ - Gen.Library: fix repositioning on connect. LG-2060
+ - `helpers`: `range` type, bug fixes, annotation improvements, Voxrame module init.
+ - Gen.Library: `Room`: declarative `Exit`s. LG-2079.
+ - Add `readme.md`, `license.md`, set tech name: `voxrame`.
+ - Add smart `.luacheckrc` configurations with `common` & `game` presets.
