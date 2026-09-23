@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Propagate a tag pushed on this repo to all split sub-mod repos (asume `init-remotes` was run)
+# Usage: ./.build/propagate-tags <tag>
+
+tag="$1"
+
+sha=$(git subtree split -P helpers "$tag")
+git push vx-helpers "$sha:refs/tags/$tag"

@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - master
+    tags:
+      - '*'
   workflow_dispatch:
 
 jobs:
@@ -26,7 +28,16 @@ jobs:
         run: |
           git config --global url."https://x-access-token:${{ secrets.VOXRAME_SPLIT_GITHUB_TOKEN }}@github.com/".insteadOf "git@github.com:"
 
-      - name: Split repo
+      - name: Init remotes
         run: |
           ./.build/init-remotes
+
+      - name: Split repo
+        if: github.ref_type == 'branch'
+        run: |
           ./.build/split
+
+      - name: Propagate tag
+        if: github.ref_type == 'tag'
+        run: |
+          ./.build/propagate-tags "${{ github.ref_name }}"
