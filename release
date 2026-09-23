@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# Release Voxrame: update root + per-submod CHANGELOG.md, bump-commit, tag & push, draft a GitHub Release.
+# Requires `gh-release` (https://github.com/alek13/releaser) on PATH.
+
+set -e
+
+# split sub-mods that get their own CHANGELOG.md, keep in sync with `.build/init-remotes` / `.build/propagate-tags`
+folders=(
+    helpers
+)
+
+version=''
+yes=''
+for arg in "$@"; do
+    case ${arg} in
+        -y|--yes) yes='-y';;
+        *) version=${arg};;
+    esac
+done
+
+if [[ -z ${version} ]]; then
+    echo "Usage: ./release <version> [-y|--yes]" >&2
+    echo "  -y|--yes   don't ask for confirmation on any step (default: ask, like plain \`gh-release\`)" >&2
+    exit 1
+fi
+
+if ! command -v gh-release >/dev/null; then
+    echo "gh-release not found on PATH. See https://github.com/alek13/releaser" >&2
+    exit 1
+fi
+
+gh-release prepare ${yes} -v "${version}"
+
+for folder in "${folders[@]}"; do
+    gh-release prepare ${yes} -v "${version}" -f "${folder}"
+done
+
+gh-release version ${yes} -v "${version}"
+
+gh-release create
