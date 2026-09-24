@@ -3,6 +3,10 @@ local old_require = require
 require           = function(name) return dofile(mod_path .. '/src/' .. name:gsub('%.', '/') .. '.lua') end
 
 
+--- @class (partial) Voxrame
+--- @field helpers 'loaded'
+--- @field terminal Voxrame.terminal
+--- @field exception Voxrame.exception
 Voxrame = rawget(_G, 'Voxrame') or {}
 
 Voxrame.helpers   = 'loaded'
